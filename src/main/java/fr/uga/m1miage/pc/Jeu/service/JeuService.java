@@ -67,13 +67,14 @@ public class JeuService {
         return jeuRepository.save(jeu);
     }
 
+
     public JeuEntity recupererJeu(Long idJeu) {
         JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow();
         return jeu;
     }
-    public void abandonnerJeu(UUID idJoueur, Long idJeu, StrategieEnum strategie) {
-        JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
 
+    public void abandonnerJeu(UUID idJoueur, StrategieEnum strategie) {
+        JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
         joueur.setAbandon(true);
         joueur.setStrategie(strategie);
         joueurRepository.save(joueur);
