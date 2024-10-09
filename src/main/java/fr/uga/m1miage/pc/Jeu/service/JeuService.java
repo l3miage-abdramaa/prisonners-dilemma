@@ -55,13 +55,13 @@ public class JeuService {
                 .jeu(jeu)
                 .nomJoueur(pseudo)
                 .build();
-        JoueurEntity joueurEnregistre = joueurRepository.save(secondJoueur);
+        joueurRepository.save(secondJoueur);
         PartieEntity partie = PartieEntity
                 .builder()
                 .jeu(jeu)
                 .statut(StatutPartieEnum.EN_COURS)
                 .build();
-        PartieEntity partieEnregistre = partieRepository.save(partie);
+        partieRepository.save(partie);
         jeu.setStatut(StatutJeuEnum.EN_COURS);
 
         return jeuRepository.save(jeu);
@@ -69,16 +69,10 @@ public class JeuService {
 
 
     public JeuEntity recupererJeu(Long idJeu) {
-        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow();
-        return jeu;
+        return jeuRepository.findById(idJeu).orElseThrow();
     }
 
-    public void abandonnerJeu(UUID idJoueur, StrategieEnum strategie) {
-        JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
-        joueur.setAbandon(true);
-        joueur.setStrategie(strategie);
-        joueurRepository.save(joueur);
-    }
+
 
 
 }
