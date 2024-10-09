@@ -38,6 +38,7 @@ public class PartieService {
 
         PartieEntity partieEnCours = partieRepository.findByJeuIdAndStatut(idJeu,StatutPartieEnum.EN_COURS);
 
+
         PartieJoueurEntity partieJoueur = PartieJoueurEntity
                 .builder()
                 .partie(partieEnCours)
@@ -54,6 +55,7 @@ public class PartieService {
 
         return partieJoueur;
     }
+
 
     public void terminerPartie(PartieEntity partie) {
         partie.setStatut(StatutPartieEnum.TERMINE);
