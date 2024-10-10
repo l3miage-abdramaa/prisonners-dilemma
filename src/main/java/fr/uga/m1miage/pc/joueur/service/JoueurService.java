@@ -12,12 +12,10 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class JoueurService {
-
-
     private final JoueurRepository joueurRepository;
+
     public JoueurEntity abandonnerJeu(UUID idJoueur, StrategieEnum strategie) {
         JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
-        joueur.setAbandon(true);
         joueur.setStrategie(strategie);
         return joueurRepository.save(joueur);
     }

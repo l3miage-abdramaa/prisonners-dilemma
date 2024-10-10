@@ -16,19 +16,15 @@ import java.util.UUID;
 @RequestMapping("/joueurs")
 @AllArgsConstructor
 public class JoueurController {
-
-
     private final JoueurService joueurService;
 
 
     private final JoueurMapper joueurMapper;
+
     @PatchMapping("/{idJoueur}/abandonner")
     public ResponseEntity<JoueurDTO> abandonnerJeu(@RequestBody AbandonRequestDTO abandonRequestDTO, @PathVariable UUID idJoueur) {
-
         JoueurEntity joueur = joueurService.abandonnerJeu(idJoueur, abandonRequestDTO.getStrategie());
-
         JoueurDTO response = joueurMapper.mapEntityToDTO(joueur);
         return ResponseEntity.status(HttpStatus.OK).body(response);
-
     }
 }

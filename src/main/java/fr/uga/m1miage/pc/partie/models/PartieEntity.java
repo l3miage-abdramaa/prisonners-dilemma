@@ -25,6 +25,7 @@ public class PartieEntity {
     @Enumerated(EnumType.STRING)
     private StatutPartieEnum statut;
 
+    @Column(nullable = true)
     private int ordre;
 
     @ManyToOne
@@ -32,6 +33,4 @@ public class PartieEntity {
 
     @OneToMany(mappedBy = "partie")
     private List<PartieJoueurEntity> partiesJoueur;
-
-
 }
