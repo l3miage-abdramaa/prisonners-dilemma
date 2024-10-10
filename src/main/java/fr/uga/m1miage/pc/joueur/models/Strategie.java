@@ -1,9 +1,9 @@
-package fr.uga.m1miage.pc.Joueur.models;
+package fr.uga.m1miage.pc.joueur.models;
 
-import fr.uga.m1miage.pc.Joueur.enums.StrategieEnum;
-import fr.uga.m1miage.pc.Partie.enums.CoupEnum;
-import fr.uga.m1miage.pc.Partie.enums.StatutPartieEnum;
-import fr.uga.m1miage.pc.Partie.models.PartieEntity;
+import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.partie.enums.CoupEnum;
+import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
+import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import org.springframework.stereotype.Component;
 
