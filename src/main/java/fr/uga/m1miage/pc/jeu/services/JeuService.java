@@ -60,6 +60,7 @@ public class JeuService {
         PartieEntity partie = PartieEntity
                 .builder()
                 .jeu(jeu)
+                .ordre(1)
                 .statut(StatutPartieEnum.EN_COURS)
                 .build();
         partieRepository.save(partie);

@@ -46,7 +46,7 @@ public class PartieService {
         if(partieEnCours.getPartiesJoueur().size() == 2) {
             calculerScore(partieEnCours.getPartiesJoueur());
             terminerPartie(partieEnCours);
-            creerPartie(joueur.getJeu());
+            creerPartie(joueur.getJeu(), partieEnCours.getOrdre()+1);
         }
 
         return partieJoueur;
@@ -58,11 +58,12 @@ public class PartieService {
         partieRepository.save(partie);
     }
 
-    public void creerPartie(JeuEntity jeu)  {
+    public void creerPartie(JeuEntity jeu, int ordre)  {
         if (jeu.getNombreParties() >= jeu.getParties().size()) {
             PartieEntity partie = PartieEntity
                     .builder()
                     .jeu(jeu)
+                    .ordre(ordre)
                     .statut(StatutPartieEnum.EN_COURS)
                     .build();
             partieRepository.save(partie);

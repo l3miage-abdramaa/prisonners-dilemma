@@ -18,13 +18,14 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PartieEntity {
-
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     @Enumerated(EnumType.STRING)
     private StatutPartieEnum statut;
+
+    private int ordre;
 
     @ManyToOne
     private JeuEntity jeu;
