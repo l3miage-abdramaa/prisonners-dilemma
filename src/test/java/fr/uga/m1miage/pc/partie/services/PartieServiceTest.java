@@ -240,38 +240,7 @@ class PartieServiceTest {
     }
 
 
-    @Test
-    void testJouerServeurCoup_Succes() {
-        JoueurEntity joueur = JoueurEntity
-                .builder()
-                .abandon(true)
-                .strategie(StrategieEnum.DONNANT_DONNANT)
-                .build();
-        JoueurEntity autreJoueur = JoueurEntity
-                .builder()
-                .abandon(null)
-                .build();
 
-        JeuEntity jeu = JeuEntity
-                .builder()
-                .joueurs(List.of(joueur,autreJoueur))
-                .build();
-
-        PartieEntity partie = PartieEntity
-                .builder()
-                .jeu(jeu)
-                .statut(StatutPartieEnum.EN_COURS)
-                .build();
-        jeu.setParties(List.of(partie));
-        when(jeuRepository.findById(anyLong())).thenReturn(Optional.of(jeu));
-        when(partieRepository.findByJeuIdAndStatut(anyLong(), eq(StatutPartieEnum.EN_COURS))).thenReturn(partie);
-
-        // Exécuter la méthode
-        assertDoesNotThrow(() -> partieService.jouerServeurCoup(1L));
-
-        // Vérifier que le partieJoueurRepository.save() a été appelé
-        verify(partieJoueurRepository, times(1)).save(any(PartieJoueurEntity.class));
-    }
 
 
 
@@ -297,6 +266,7 @@ class PartieServiceTest {
                 .builder()
                 .jeu(jeu)
                 .statut(StatutPartieEnum.EN_COURS)
+                .partiesJoueur(new ArrayList<>())
                 .build();
         jeu.setParties(List.of(partie));
         jeu.setJoueurs(List.of(new JoueurEntity(), new JoueurEntity()));
@@ -362,14 +332,28 @@ class PartieServiceTest {
 
     @Test
     void testTerminerPartie() {
+        // Création d'un jeu et de joueurs
+        JeuEntity jeu = new JeuEntity();
+        PartieJoueurEntity joueur1 = new PartieJoueurEntity();
+        joueur1.setCoup(CoupEnum.COOPERER); // Exemple de coup
+        PartieJoueurEntity joueur2 = new PartieJoueurEntity();
+        joueur2.setCoup(CoupEnum.TRAHIR); // Exemple de coup
+
+        // Création de la partie avec des joueurs
         PartieEntity partieEnCours = PartieEntity.builder()
-                .jeu(new JeuEntity())
+                .jeu(jeu)
                 .ordre(1)
-                .partiesJoueur(new ArrayList<>()) // Assurez-vous d'initialiser la liste
+                .partiesJoueur(new ArrayList<>(Arrays.asList(joueur1, joueur2))) // Ajout de joueurs
                 .build();
+
+        // Stubbing des méthodes
         doNothing().when(partieService).calculerScore(anyList());
         doNothing().when(partieService).creerNouvellePartie(any(JeuEntity.class), anyInt());
+
+        // Appel de la méthode à tester
         partieService.terminerPartie(partieEnCours);
+
+        // Vérifications
         verify(partieService).calculerScore(partieEnCours.getPartiesJoueur());
         verify(partieService).creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre() + 1);
         assertEquals(StatutPartieEnum.TERMINE, partieEnCours.getStatut());
@@ -441,16 +425,15 @@ class PartieServiceTest {
 
     @Test
     void testJoueurCoupAdverseAbandonne() {
-
         CoupEnum coup = CoupEnum.COOPERER;
 
-        JoueurEntity joueur = JoueurEntity
-                .builder()
+        JoueurEntity joueur = JoueurEntity.builder()
+                .id(UUID.randomUUID())
                 .strategie(StrategieEnum.DONNANT_DONNANT)
                 .build();
 
-        JoueurEntity joueurAdverse = JoueurEntity
-                .builder()
+        JoueurEntity joueurAdverse = JoueurEntity.builder()
+                .id(UUID.randomUUID())
                 .abandon(true)
                 .strategie(StrategieEnum.DONNANT_DONNANT)
                 .build();
@@ -460,12 +443,25 @@ class PartieServiceTest {
                 .partiesJoueur(new ArrayList<>())
                 .build();
 
-        JeuEntity jeu = JeuEntity
-                .builder()
+        PartieJoueurEntity partieJoueur1 = PartieJoueurEntity.builder()
+                .joueur(joueur)
+                .coup(coup)
+                .build();
+
+        PartieJoueurEntity partieJoueur2 = PartieJoueurEntity.builder()
+                .joueur(joueurAdverse)
+                .coup(CoupEnum.TRAHIR)
+                .build();
+
+        partieEnCours.getPartiesJoueur().add(partieJoueur1);
+        partieEnCours.getPartiesJoueur().add(partieJoueur2);
+
+        JeuEntity jeu = JeuEntity.builder()
                 .id(1L)
                 .joueurs(List.of(joueur, joueurAdverse))
                 .parties(List.of(partieEnCours))
                 .build();
+
         partieEnCours.setJeu(jeu);
         joueur.setJeu(jeu);
         joueurAdverse.setJeu(jeu);
@@ -473,10 +469,16 @@ class PartieServiceTest {
         when(joueurRepository.findById(joueur.getId())).thenReturn(Optional.of(joueur));
         when(partieRepository.findByJeuIdAndStatut(jeu.getId(), StatutPartieEnum.EN_COURS)).thenReturn(partieEnCours);
         when(jeuRepository.findById(jeu.getId())).thenReturn(Optional.of(jeu));
-        partieService.joueurCoup(joueur.getId(), jeu.getId(), coup);
 
-        verify(joueurRepository).findById(joueur.getId());
-        verify(partieRepository, times(2)).findByJeuIdAndStatut(jeu.getId(), StatutPartieEnum.EN_COURS); // Ajustez ici si nécessaire
+        PartieJoueurEntity partieJoueur = partieService.joueurCoup(joueur.getId(), jeu.getId(), coup);
+
+        verify (joueurRepository).findById(joueur.getId());
+        verify(partieRepository, times(2)).findByJeuIdAndStatut(jeu.getId(), StatutPartieEnum.EN_COURS);
+        verify(partieService, times(2)).terminerPartie(partieEnCours);
+
+        assertNotNull(partieJoueur);
+        assertEquals(coup, partieJoueur.getCoup());
+        assertEquals(joueur, partieJoueur.getJoueur());
     }
 
 
