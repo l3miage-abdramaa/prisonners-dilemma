@@ -38,6 +38,8 @@ public class PartieService {
     public PartieJoueurEntity joueurCoup(UUID idJoueur, Long idJeu, CoupEnum coup) {
         JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
         PartieEntity partieEnCours = partieRepository.findByJeuIdAndStatut(idJeu,StatutPartieEnum.EN_COURS);
+
+
         PartieJoueurEntity partieJoueur = PartieJoueurEntity
                 .builder()
                 .partie(partieEnCours)
@@ -45,6 +47,7 @@ public class PartieService {
                 .joueur(joueur)
                 .build();
         partieJoueurRepository.save(partieJoueur);
+
 
         if (regarderSiJoueurAdverseAAbandonne(idJeu)) {
             jouerServeurCoup(idJeu);
@@ -62,7 +65,7 @@ public class PartieService {
     }
 
     public boolean regarderSiJoueurAdverseAAbandonne(Long idJeu) {
-        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow(() -> new IllegalArgumentException("Jeu non trouv�"));
+        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow(() -> new IllegalArgumentException("Jeu non trouvï¿½"));
 
         for (JoueurEntity joueur : jeu.getJoueurs()) {
             if (joueur.getAbandon() != null) {
@@ -88,12 +91,22 @@ public class PartieService {
                     .joueur(joueurAbandonne)
                     .build();
             partieJoueurRepository.save(partieJoueur);
+
+            // Terminer la partie après le tour du serveur
+            terminerPartie(partieEnCours);
         }
+
 
     }
 
+
     public void terminerPartie(PartieEntity partieEnCours) {
-        calculerScore(partieEnCours.getPartiesJoueur());
+        if (partieEnCours.getPartiesJoueur() != null && !partieEnCours.getPartiesJoueur().isEmpty()) {
+            calculerScore(partieEnCours.getPartiesJoueur());
+        } else {
+            throw new IllegalStateException("La liste des joueurs est vide ou nulle.");
+        }
+        creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre() + 1);
         partieEnCours.setStatut(StatutPartieEnum.TERMINE);
         partieRepository.save(partieEnCours);
         creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre()+1);

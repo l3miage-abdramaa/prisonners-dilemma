@@ -6,5 +6,6 @@ public enum StrategieEnum {
     TOUJOURS_COOPERER,
     TOUJOURS_TRAHIR,
     RANCUNIER,
-    ALEATOIRE;
+    ALEATOIRE,
+    DONNANT_DONNANT_ALEATOIRE;
 }

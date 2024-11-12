@@ -6,20 +6,18 @@ public class StrategieFactory {
     private StrategieFactory(){}
 
     public static StrategieInterface getStrategie(StrategieEnum strategieEnum) {
-        switch (strategieEnum) {
-            case TOUJOURS_TRAHIR : return new ToujoursTrahirStrategie();
 
-            case TOUJOURS_COOPERER : return new ToujoursCoopererStrategie();
-
-            case ALEATOIRE: return new AleatoireStrategie();
-
-            case DONNANT_DONNANT: return  new DonnantDonnant();
-
-            case RANCUNIER: return new RancunierStrategie();
-
-            default:
-                throw new IllegalArgumentException("Stratégie inconnue : " + strategieEnum);
-
+        if (strategieEnum == null) {
+            throw new IllegalArgumentException("Strategie inconnue : null");
         }
+
+        return switch (strategieEnum) {
+            case TOUJOURS_TRAHIR -> new ToujoursTrahirStrategie();
+            case TOUJOURS_COOPERER -> new ToujoursCoopererStrategie();
+            case ALEATOIRE -> new AleatoireStrategie();
+            case DONNANT_DONNANT -> new DonnantDonnant();
+            case RANCUNIER -> new RancunierStrategie();
+            case DONNANT_DONNANT_ALEATOIRE -> new DonnantDonnantAleatoireStrategie();
+        };
     }
 }
