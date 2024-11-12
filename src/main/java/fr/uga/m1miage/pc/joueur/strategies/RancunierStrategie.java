@@ -18,5 +18,6 @@ public class RancunierStrategie implements StrategieInterface {
                 .orElse(null);
 
         return partieJoueurCoupTrahir != null ? CoupEnum.TRAHIR : CoupEnum.COOPERER;
+
     }
 }
