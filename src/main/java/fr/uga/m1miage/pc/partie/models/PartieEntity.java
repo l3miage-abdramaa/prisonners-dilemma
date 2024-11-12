@@ -30,6 +30,6 @@ public class PartieEntity {
     @JoinColumn(name = "jeu_id")
     private JeuEntity jeu;
 
-    @OneToMany(mappedBy = "partie")
+    @OneToMany(mappedBy = "partie", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PartieJoueurEntity> partiesJoueur ;
 }
