@@ -109,7 +109,6 @@ public class PartieService {
         creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre() + 1);
         partieEnCours.setStatut(StatutPartieEnum.TERMINE);
         partieRepository.save(partieEnCours);
-        creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre()+1);
     }
 
     public void creerNouvellePartie(JeuEntity jeu, int ordre)  {
@@ -126,7 +125,7 @@ public class PartieService {
 
     public void terminerJeu(JeuEntity jeu) {
         List<PartieEntity> partieEntities = jeu.getParties().stream().filter(partie -> partie.getStatut().equals(StatutPartieEnum.EN_COURS)).toList();
-        if (partieEntities.size() == 0) {
+        if (partieEntities.isEmpty()) {
             jeu.setStatut(StatutJeuEnum.TERMINE);
             jeuRepository.save(jeu);
         }

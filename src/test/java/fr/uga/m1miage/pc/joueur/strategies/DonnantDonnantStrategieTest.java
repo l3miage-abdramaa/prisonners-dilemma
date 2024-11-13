@@ -21,17 +21,17 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @TestConfiguration
 @ExtendWith(MockitoExtension.class)
-class DonnantDonnantTest {
+class DonnantDonnantStrategieTest {
 
     @Mock
-    private DonnantDonnant strategie;
+    private DonnantDonnantStrategie strategie;
     @Mock
     private List<PartieEntity> parties;
 
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this); // Initialise les mocks
-        strategie = new DonnantDonnant();
+        strategie = new DonnantDonnantStrategie();
         parties = new ArrayList<>();
 
     }

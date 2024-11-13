@@ -8,7 +8,7 @@ import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import java.util.List;
 import java.util.Optional;
 
-public class DonnantDonnant implements StrategieInterface{
+public class DonnantDonnantStrategie implements StrategieInterface{
 
 
     @Override
