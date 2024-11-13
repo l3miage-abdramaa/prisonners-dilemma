@@ -2,6 +2,7 @@ package fr.uga.m1miage.pc.jeu.services;
 
 
 import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
+import fr.uga.m1miage.pc.jeu.exceptions.JeuCreationException;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
@@ -42,7 +43,7 @@ public class JeuService {
     
             return jeuEnregistre;
         } catch (Exception e) {
-            throw new RuntimeException(e);
+            throw new JeuCreationException(e.getMessage(),e.getCause());
         }
     }
 

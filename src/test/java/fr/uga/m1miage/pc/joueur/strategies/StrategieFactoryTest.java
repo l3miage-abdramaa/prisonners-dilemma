@@ -33,7 +33,7 @@ class StrategieFactoryTest {
     void testGetStrategieDonnantDonnant() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_DONNANT);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof DonnantDonnant);
+        assertTrue(strategie instanceof DonnantDonnantStrategie);
     }
 
     @Test
@@ -48,6 +48,62 @@ class StrategieFactoryTest {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_DONNANT_ALEATOIRE);
         assertNotNull(strategie);
         assertTrue(strategie instanceof DonnantDonnantAleatoireStrategie);
+    }
+
+
+
+
+    @Test
+    void testGetStrategieDonnantPourDeuxDonnantsAleatoire() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_POUR_DEUX_DONNANTS_ALEATOIRE);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof DonnantPourDeuxDonnantsAleatoireStrategie);
+    }
+
+
+
+    @Test
+    void testGetStrategieSondeurNaif() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.SONDEUR_NAIF);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof SondeurNaifStrategie);
+    }
+
+    @Test
+    void testGetStrategieSondeurRepentant() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.SONDEUR_REPENTANT);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof SondeurRepentantStrategie);
+    }
+
+    @Test
+    void testGetStrategiePacificateurNaif() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PACIFICATEUR_NAIF);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof PacificateurNaifStrategie);
+    }
+
+
+    @Test
+    void testGetStrategieVraiPacificateur() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.VRAI_PACIFICATEUR);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof VraiPacificateurStrategie);
+    }
+
+
+    @Test
+    void testGetStrategiePavlov() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PAVLOV);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof PavlovStrategie);
+    }
+
+    @Test
+    void testGetStrategiePavlovAleatoire() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PAVLOV_ALEATOIRE);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof PavlovAleatoireStrategie);
     }
 
 
