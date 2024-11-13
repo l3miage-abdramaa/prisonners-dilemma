@@ -4,6 +4,7 @@ package fr.uga.m1miage.pc.partie.services;
 import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import fr.uga.m1miage.pc.joueur.strategies.Strategie;
@@ -13,12 +14,14 @@ import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
-import org.springframework.stereotype.Service;
+import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
 
 @Service
+@Slf4j
 public class PartieService {
     private final JeuRepository jeuRepository;
 
@@ -27,6 +30,8 @@ public class PartieService {
     private final PartieRepository partieRepository;
 
     private final PartieJoueurRepository partieJoueurRepository;
+
+    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
 
     public PartieService(JeuRepository jeuRepository, JoueurRepository joueurRepository, PartieRepository partieRepository, PartieJoueurRepository partieJoueurRepository) {
         this.jeuRepository = jeuRepository;
@@ -61,11 +66,12 @@ public class PartieService {
             terminerJeu(joueur.getJeu());
         }
 
+        jeuSseManager.notifier(idJeu);
         return partieJoueur;
     }
 
     public boolean regarderSiJoueurAdverseAAbandonne(Long idJeu) {
-        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow(() -> new IllegalArgumentException("Jeu non trouvï¿½"));
+        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow(() -> new IllegalArgumentException("Jeu non trouvé"));
 
         for (JoueurEntity joueur : jeu.getJoueurs()) {
             if (joueur.getAbandon() != null) {
