@@ -5,6 +5,7 @@ import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
 import fr.uga.m1miage.pc.jeu.exceptions.JeuCreationException;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
@@ -21,6 +22,8 @@ public class JeuService {
     JeuRepository jeuRepository;
     @Autowired
     PartieRepository partieRepository;
+
+    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
 
     public JeuEntity creerJeu(String nomJoueur, int nombreParties) {
         try {
@@ -50,8 +53,8 @@ public class JeuService {
 
 
 
-    public JeuEntity joindreJeu(String pseudo, Long id) {
-        JeuEntity jeu = jeuRepository.findById(id).orElseThrow();
+    public JeuEntity joindreJeu(String pseudo, Long idJeu) {
+        JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow();
         if (jeu.getStatut().equals(StatutJeuEnum.EN_COURS)) {
             throw new IllegalArgumentException("Le nombre de joueurs est atteint");
         }
@@ -72,6 +75,7 @@ public class JeuService {
 
         JeuEntity jeuMisAJour = jeuRepository.save(jeu);
         jeuMisAJour.setJoueurCree(secondJoueur);
+        jeuSseManager.notifier(idJeu);
         return jeuMisAJour;
     }
 
