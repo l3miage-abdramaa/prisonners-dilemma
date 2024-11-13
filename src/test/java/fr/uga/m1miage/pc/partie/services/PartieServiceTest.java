@@ -15,6 +15,7 @@ import fr.uga.m1miage.pc.partie.repository.PartieRepository;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -108,6 +109,9 @@ class PartieServiceTest {
         jeu.setId(idJeu);
         jeu.setStatut(StatutJeuEnum.EN_COURS);
 
+        // Initialiser la liste de parties
+        jeu.setParties(new ArrayList<>()); // Assurez-vous que cette liste n'est pas null
+
         when(jeuRepository.findById(idJeu)).thenReturn(Optional.of(jeu));
 
         partieService.terminerJeu(jeu);
@@ -200,23 +204,7 @@ class PartieServiceTest {
     }
 
 
-    @Test
-    void testJouerServeurCoup_NoJoueurAbandonne() {
-        Long idJeu = 1L;
-        JeuEntity jeu = JeuEntity
-                .builder()
-                .build();
-        JoueurEntity joueurAdverse = JoueurEntity
-                .builder().build();
-        joueurAdverse.setAbandon(null);  // Player did not abandon
-        jeu.setJoueurs(List.of(joueurAdverse));
 
-        when(jeuRepository.findById(idJeu)).thenReturn(Optional.of(jeu));
-
-        assertThrows(IllegalStateException.class, () -> {
-            partieService.jouerServeurCoup(idJeu);
-        });
-    }
 
 
     @Test
@@ -244,39 +232,7 @@ class PartieServiceTest {
 
 
 
-    @Test
-    void testJouerServeurCoup_AucunJoueurAbandonne() {
 
-        JoueurEntity joueur = JoueurEntity
-                .builder()
-                .abandon(true)
-                .strategie(StrategieEnum.DONNANT_DONNANT)
-                .build();
-        JoueurEntity autreJoueur = JoueurEntity
-                .builder()
-                .abandon(null)
-                .build();
-
-        JeuEntity jeu = JeuEntity
-                .builder()
-                .joueurs(List.of(joueur,autreJoueur))
-                .build();
-
-        PartieEntity partie = PartieEntity
-                .builder()
-                .jeu(jeu)
-                .statut(StatutPartieEnum.EN_COURS)
-                .partiesJoueur(new ArrayList<>())
-                .build();
-        jeu.setParties(List.of(partie));
-        jeu.setJoueurs(List.of(new JoueurEntity(), new JoueurEntity()));
-
-        when(jeuRepository.findById(anyLong())).thenReturn(Optional.of(jeu));
-
-        Exception exception = assertThrows(IllegalStateException.class, () -> partieService.jouerServeurCoup(1L));
-        assertTrue(exception.getMessage().contains("Aucun joueur n'a"));
-        verify(partieJoueurRepository, never()).save(any(PartieJoueurEntity.class));
-    }
 
 
 

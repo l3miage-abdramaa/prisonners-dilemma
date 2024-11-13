@@ -1,6 +1,8 @@
 package fr.uga.m1miage.pc.joueur.strategies;
 
 import static org.junit.jupiter.api.Assertions.*;
+
+import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
@@ -13,8 +15,13 @@ class RancunierStrategieTest {
 
     @Test
     void testGetCoupAvecCoupTrahir() {
+        // Créer un joueur avec un abandon à null
+        JoueurEntity joueur = new JoueurEntity();
+        joueur.setAbandon(null); // Assurez-vous que l'abandon est null
+
         // Créer une partie avec un coup de trahison
         PartieJoueurEntity partieJoueurEntity = new PartieJoueurEntity();
+        partieJoueurEntity.setJoueur(joueur); // Associez le joueur à la partie
         partieJoueurEntity.setCoup(CoupEnum.TRAHIR); // Simuler un coup de trahison
 
         List<PartieJoueurEntity> partieJoueurEntities = new ArrayList<>();
@@ -29,7 +36,7 @@ class RancunierStrategieTest {
         RancunierStrategie strategie = new RancunierStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        assertEquals(CoupEnum.COOPERER, coup); // Doit coopérer car un coup de trahison a été joué
+        assertEquals(CoupEnum.TRAHIR, coup); // Doit trahir car un coup de trahison a été joué
     }
 
     @Test
@@ -38,6 +45,7 @@ class RancunierStrategieTest {
         PartieJoueurEntity partieJoueurEntity = new PartieJoueurEntity();
         partieJoueurEntity.setCoup(CoupEnum.COOPERER); // Simuler un coup de coopération
 
+        partieJoueurEntity.setJoueur(new JoueurEntity());
         List<PartieJoueurEntity> partieJoueurEntities = new ArrayList<>();
         partieJoueurEntities.add(partieJoueurEntity);
 
@@ -50,7 +58,7 @@ class RancunierStrategieTest {
         RancunierStrategie strategie = new RancunierStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        assertEquals(CoupEnum.TRAHIR, coup); // Doit trahir car aucun coup de trahison n'a été joué
+        assertEquals(CoupEnum.COOPERER, coup); // Doit trahir car aucun coup de trahison n'a été joué
     }
 
     @Test
@@ -61,6 +69,6 @@ class RancunierStrategieTest {
         RancunierStrategie strategie = new RancunierStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        assertEquals(CoupEnum.TRAHIR, coup);
+        assertEquals(CoupEnum.COOPERER, coup);
     }
 }

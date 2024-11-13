@@ -15,9 +15,16 @@ public class StrategieFactory {
             case TOUJOURS_TRAHIR -> new ToujoursTrahirStrategie();
             case TOUJOURS_COOPERER -> new ToujoursCoopererStrategie();
             case ALEATOIRE -> new AleatoireStrategie();
-            case DONNANT_DONNANT -> new DonnantDonnant();
+            case DONNANT_DONNANT -> new DonnantDonnantStrategie();
             case RANCUNIER -> new RancunierStrategie();
             case DONNANT_DONNANT_ALEATOIRE -> new DonnantDonnantAleatoireStrategie();
+            case DONNANT_POUR_DEUX_DONNANTS_ALEATOIRE -> new DonnantPourDeuxDonnantsAleatoireStrategie();
+            case SONDEUR_NAIF -> new SondeurNaifStrategie();
+            case SONDEUR_REPENTANT -> new SondeurRepentantStrategie();
+            case PACIFICATEUR_NAIF -> new PacificateurNaifStrategie();
+            case VRAI_PACIFICATEUR -> new VraiPacificateurStrategie();
+            case PAVLOV -> new PavlovStrategie();
+            case PAVLOV_ALEATOIRE -> new PavlovAleatoireStrategie();
         };
     }
 }
