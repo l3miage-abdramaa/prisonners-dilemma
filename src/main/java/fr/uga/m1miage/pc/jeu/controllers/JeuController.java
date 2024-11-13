@@ -8,13 +8,18 @@ import fr.uga.m1miage.pc.jeu.response.JeuConnexionResponseDTO;
 import fr.uga.m1miage.pc.jeu.response.JeuCreationResponseDTO;
 import fr.uga.m1miage.pc.jeu.response.JeuDTO;
 import fr.uga.m1miage.pc.jeu.services.JeuService;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.mappers.GlobalMapper;
 import lombok.RequiredArgsConstructor;
+
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Controller
 @RequiredArgsConstructor
@@ -23,6 +28,15 @@ public class JeuController {
 
     @Autowired
     private JeuService jeuService;
+
+    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
+
+    @GetMapping("{idJeu}/joueurs/{idJoueur}/event")
+    @CrossOrigin
+    public SseEmitter eventEmitter(@PathVariable Long idJeu, @PathVariable String idJoueur) throws IOException {
+        SseEmitter jeuSseEmitter = jeuSseManager.creerNouveauSse(idJeu, idJoueur);
+        return jeuSseEmitter;
+    }
 
     @PostMapping("/creer-jeu")
     public ResponseEntity<JeuCreationResponseDTO> creerJeu(@RequestBody JeuCreationRequestDTO jeuCreationDTO) {
