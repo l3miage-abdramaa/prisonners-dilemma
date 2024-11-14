@@ -7,6 +7,7 @@ import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.Optional;
 import java.util.UUID;
@@ -16,7 +17,8 @@ import java.util.UUID;
 public class JoueurService {
     private final JoueurRepository joueurRepository;
 
-    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
+    @Autowired
+    private JeuSseManager jeuSseManager;
 
     public JoueurService(JoueurRepository joueurRepository) {
         this.joueurRepository = joueurRepository;

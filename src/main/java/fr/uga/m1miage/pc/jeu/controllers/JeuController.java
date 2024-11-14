@@ -29,7 +29,8 @@ public class JeuController {
     @Autowired
     private JeuService jeuService;
 
-    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
+    @Autowired
+    private JeuSseManager jeuSseManager;
 
     @GetMapping("{idJeu}/joueurs/{idJoueur}/event")
     @CrossOrigin
