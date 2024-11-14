@@ -56,6 +56,6 @@ class SondeurRepentantStrategieTest {
             }
         }
 
-        assertTrue(trahisons >= 2500 && trahisons <= 3500); // Supposons que la probabilité de trahir est de 30%
+        assertTrue(trahisons >= 2500 && trahisons <= 3500);
     }
 }

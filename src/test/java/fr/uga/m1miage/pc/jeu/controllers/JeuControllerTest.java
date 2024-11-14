@@ -59,27 +59,25 @@ class JeuControllerTest {
                 jeu.setStatut(StatutJeuEnum.EN_COURS);
                 jeu.setNombreParties(3);
 
-                // Configuration du mock pour simuler la réponse du service
+
                 when(jeuService.creerJeu("Abdraman", 3)).thenReturn(jeu);
                 
         }
 
         @Test
         void testCreerJeu() {
-                // Arrange : Création des objets nécessaires pour le test
                 JeuCreationRequestDTO requestDTO = JeuCreationRequestDTO.builder()
                                 .pseudoJoueur("Player1")
                                 .nombreParties(3)
                                 .build();
 
-                // Simulation du comportement du service
                 JeuEntity jeuEntity = JeuEntity.builder()
                                 .id(1L)
                                 .statut(StatutJeuEnum.EN_ATTENTE)
                                 .nombreParties(3)
                                 .build();
 
-                when(jeuService.creerJeu("Player1", 3)).thenReturn(jeuEntity); // Mock le comportement
+                when(jeuService.creerJeu("Player1", 3)).thenReturn(jeuEntity);
 
                 JeuCreationResponseDTO responseDTO = JeuCreationResponseDTO.builder()
                                 .id(1L)
@@ -87,17 +85,17 @@ class JeuControllerTest {
                                 .nombreParties(3)
                                 .build();
 
-                // Act : Appel du endpoint
+
                 ResponseEntity<JeuCreationResponseDTO> response = jeuController.creerJeu(requestDTO);
 
-                // Assert : Vérification des résultats
+
                 assertEquals(HttpStatus.CREATED, response.getStatusCode());
                 assertEquals(responseDTO, response.getBody());
         }
 
         @Test
         void testJoindreJeu() {
-                // Given
+
                 JeuEntity jeuEntity = JeuEntity.builder()
                                 .id(57657L)
                                 .statut(StatutJeuEnum.EN_COURS)
@@ -109,7 +107,7 @@ class JeuControllerTest {
                                 .pseudoJoueur("Gabriel")
                                 .build();
 
-                // When
+
                 when(jeuService.joindreJeu("Gabriel", 57657L)).thenReturn(jeuEntity);
 
                 JeuConnexionResponseDTO jeuConnexionResponseDTO = JeuConnexionResponseDTO.builder()
@@ -119,7 +117,7 @@ class JeuControllerTest {
 
                 ResponseEntity<JeuConnexionResponseDTO> response = jeuController.joindreJeu(jeuConnexionRequestDTO);
 
-                // Then
+
                 assert (response != null);
                 assert (response.getBody() != null);
                 assertEquals(HttpStatus.OK, response.getStatusCode());

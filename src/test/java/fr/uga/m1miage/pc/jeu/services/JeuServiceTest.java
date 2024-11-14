@@ -83,7 +83,7 @@ class JeuServiceTest {
 
     @Test
     void testJoindreJeu() {
-        // Arrange
+
         Long jeuId = 1L;
         String pseudo = "John";
 
@@ -139,7 +139,7 @@ class JeuServiceTest {
 
         assertEquals("Le nombre de joueurs est atteint", exception.getMessage());
 
-        // Vérifier que rien n'a été enregistré dans le repository
+
         verify(joueurRepository, never()).save(any(JoueurEntity.class));
         verify(partieRepository, never()).save(any(PartieEntity.class));
         verify(jeuRepository, never()).save(jeu);
@@ -191,17 +191,17 @@ class JeuServiceTest {
 
     @Test
     void testJoindreJeu_JeuNonExistant() {
-        // Arrange
+
         Long id = 1L;
         when(jeuRepository.findById(id)).thenReturn(Optional.empty());
 
-        // Act & Assert
+
         assertThrows(NoSuchElementException.class, () -> jeuService.joindreJeu("Doe", id));
     }
 
     @Test
     void testJoindreJeu_DejaCommence() {
-        // Arrange
+
         Long id = 1L;
         JeuEntity jeu = JeuEntity.builder()
                 .statut(StatutJeuEnum.EN_COURS)
@@ -209,32 +209,32 @@ class JeuServiceTest {
 
         when(jeuRepository.findById(id)).thenReturn(Optional.of(jeu));
 
-        // Act & Assert
+
         assertThrows(IllegalArgumentException.class, () -> jeuService.joindreJeu("Doe", id));
     }
 
     @Test
     void testRecupererJeu_Success() {
-        // Arrange
+
         Long idJeu = 1L;
         JeuEntity jeu = JeuEntity.builder().id(idJeu).build();
         when(jeuRepository.findById(idJeu)).thenReturn(Optional.of(jeu));
 
-        // Act
+
         JeuEntity result = jeuService.recupererJeu(idJeu);
 
-        // Assert
+
         assertNotNull(result);
         verify(jeuRepository, times(1)).findById(idJeu);
     }
 
     @Test
     void testRecupererJeu_JeuNonExistant() {
-        // Arrange
+
         Long idJeu = 1L;
         when(jeuRepository.findById(idJeu)).thenReturn(Optional.empty());
 
-        // Act & Assert
+
         assertThrows(NoSuchElementException.class, () -> jeuService.recupererJeu(idJeu));
     }
 

@@ -38,10 +38,10 @@ class JeuSseManagerTest {
         Long idJeu = 1L;
         String idJoueur = "joueur1";
 
-        // Créer le premier SseEmitter
+
         jeuSseManager.creerNouveauSse(idJeu, idJoueur);
 
-        // Créer un nouveau SseEmitter pour le même joueur
+
         SseEmitter newEmitter = jeuSseManager.creerNouveauSse(idJeu, idJoueur);
 
         assertNotNull(newEmitter);
@@ -52,17 +52,17 @@ class JeuSseManagerTest {
     void testNotifier() throws IOException {
         Long idJeu = 1L;
         String idJoueur = "joueur1";
-        // Créer un SseEmitter
+
 
         SseEmitter sseEmitter = jeuSseManager.creerNouveauSse(idJeu, idJoueur);
-        // Mock de l'envoi de l'événement
+
         SseEmitter spyEmitter = Mockito.spy(sseEmitter);
         jeuSseManager.getMapJoueurSseEmitters(idJeu).put(idJoueur, spyEmitter);
 
-        // Notifier les joueurs
+
 
         jeuSseManager.notifier(idJeu);
-        // Utiliser ArgumentCaptor pour capturer l'argument passé à send
+
         ArgumentCaptor<SseEmitter.SseEventBuilder> captor = ArgumentCaptor.forClass(SseEmitter.SseEventBuilder.class);
         verify(spyEmitter).send(captor.capture());
 
@@ -71,10 +71,7 @@ class JeuSseManagerTest {
     @Test
     void testNotifier_NoEmitters() {
         Long idJeu = 1L;
-
-        // Notifier sans émetteurs
         jeuSseManager.notifier(idJeu);
-        // Pas d'exception, juste vérifier que ça ne plante
         assertDoesNotThrow(() -> jeuSseManager.notifier(idJeu));
     }
 
@@ -83,13 +80,12 @@ class JeuSseManagerTest {
         Long idJeu = 1L;
         String idJoueur = "joueur1";
 
-        // Créer un SseEmitter
         jeuSseManager.creerNouveauSse(idJeu, idJoueur);
 
-        // Supprimer les émetteurs pour le jeu
+
         jeuSseManager.supprimerJeuSseEmitters(idJeu);
 
-        // Vérifier que la map est vide
+
         assertNull(jeuSseManager.getMapJoueurSseEmitters(idJeu));
     }
 
@@ -98,13 +94,12 @@ class JeuSseManagerTest {
         Long idJeu = 1L;
         String idJoueur = "joueur1";
 
-        // Cr éer un SseEmitter
+
         jeuSseManager.creerNouveauSse(idJeu, idJoueur);
 
-        // Supprimer l'émetteur du joueur
+
         jeuSseManager.supprimerJoueurSseEmitter(idJoueur, jeuSseManager.getMapJoueurSseEmitters(idJeu));
 
-        // Vérifier que l'émetteur du joueur a été supprimé
         assertNull(jeuSseManager.getJoueurSseEmitter(idJoueur, jeuSseManager.getMapJoueurSseEmitters(idJeu)));
     }
 }

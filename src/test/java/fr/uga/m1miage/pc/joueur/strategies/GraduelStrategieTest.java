@@ -1,117 +1,88 @@
 package fr.uga.m1miage.pc.joueur.strategies;
+
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
+import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
-import fr.uga.m1miage.pc.partie.enums.CoupEnum;
-import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GraduelStrategieTest {
 
-    @Test
-    void testGraduelStrategieCooperationAfterBetrayal() {
-        JoueurEntity joueur1 = JoueurEntity.builder()
-                .nomJoueur("Joueur 1")
-                .strategie(StrategieEnum.GRADUEL)
-                .build();
+    private GraduelStrategie strategie;
+    private PartieEntity partie;
 
-        JoueurEntity joueur2 = JoueurEntity.builder()
-                .nomJoueur("Joueur 2")
-                .build();
-
-        PartieEntity partie = PartieEntity.builder()
-                .statut(StatutPartieEnum.EN_COURS)
-                .ordre(1)
-                .partiesJoueur(new ArrayList<>())
-                .build();
-
-        PartieJoueurEntity partieJoueur1 = PartieJoueurEntity.builder()
-                .joueur(joueur1)
-                .partie(partie)
-                .score(0)
-                .build();
-
-        PartieJoueurEntity partieJoueur2 = PartieJoueurEntity.builder()
-                .joueur(joueur2)
-                .partie(partie)
-                .score(0)
-                .build();
-
-        partie.getPartiesJoueur().add(partieJoueur1);
-        partie.getPartiesJoueur().add(partieJoueur2);
-
-        partieJoueur2.setCoup(CoupEnum.TRAHIR);
-
-        GraduelStrategie strategie1 = new GraduelStrategie();
-
-        List<PartieEntity> partieEntities = new ArrayList<>();
-        partieEntities.add(partie);
-
-        // Joueur 1 doit coopérer après la trahison
-        CoupEnum coupJoueur1 = strategie1.getCoup(partieEntities);
-        assertEquals(CoupEnum.COOPERER, coupJoueur1);
-
-        partieJoueur2.setCoup(CoupEnum.TRAHIR);
-
-        coupJoueur1 = strategie1.getCoup(partieEntities);
-        assertEquals(CoupEnum.COOPERER, coupJoueur1);
+    @BeforeEach
+    void setUp() {
+        strategie = new GraduelStrategie();
+        partie = new PartieEntity();
+        partie.setPartiesJoueur(Collections.emptyList());
     }
 
     @Test
-    void testGraduelStrategieCooperationAfterCooperation() {
-        // Créer les joueurs
-        JoueurEntity joueur1 = JoueurEntity.builder()
-                .nomJoueur("Joueur 1")
-                .strategie(StrategieEnum.GRADUEL)
-                .build();
+    void testCooperationInitiale() {
+        PartieJoueurEntity adversaire = new PartieJoueurEntity();
+        adversaire.setJoueur(new JoueurEntity());
+        adversaire.setCoup(CoupEnum.COOPERER);
+        partie.setPartiesJoueur(List.of(adversaire));
 
-        JoueurEntity joueur2 = JoueurEntity.builder()
-                .nomJoueur("Joueur 2")
-                .strategie(StrategieEnum.GRADUEL)
-                .build();
-
-        // Créer une partie
-        PartieEntity partie = PartieEntity.builder()
-                .statut(StatutPartieEnum.EN_COURS)
-                .ordre(1)
-                .partiesJoueur(new ArrayList<>())
-                .build();
-
-        PartieJoueurEntity partieJoueur1 = PartieJoueurEntity.builder()
-                .joueur(joueur1)
-                .partie(partie)
-                .score(0)
-                .build();
-
-        PartieJoueurEntity partieJoueur2 = PartieJoueurEntity.builder()
-                .joueur(joueur2)
-                .partie(partie)
-                .score(0)
-                .build();
-
-        partie.getPartiesJoueur().add(partieJoueur1);
-        partie.getPartiesJoueur().add(partieJoueur2);
-
-        partieJoueur2.setCoup(CoupEnum.COOPERER); // Joueur 2 coopère
-
-        GraduelStrategie strategie1 = new GraduelStrategie();
-
-        List<PartieEntity> partieEntities = new ArrayList<>();
-        partieEntities.add(partie);
-
-        CoupEnum coupJoueur1 = strategie1.getCoup(partieEntities);
-        assertEquals(CoupEnum.COOPERER, coupJoueur1);
-
-        partieJoueur2.setCoup(CoupEnum.COOPERER);
-
-        coupJoueur1 = strategie1.getCoup(partieEntities);
-        assertEquals(CoupEnum.COOPERER, coupJoueur1);
+        CoupEnum coup = strategie.getCoup(List.of(partie));
+        assertEquals(CoupEnum.COOPERER, coup);
+        assertEquals(0, strategie.getTrahisonsAdversaire());
+        assertEquals(0, strategie.getCoupsCooperationRestants());
     }
+
+    @Test
+    void testTrahisonUneFois() {
+        PartieJoueurEntity adversaire = new PartieJoueurEntity();
+        adversaire.setJoueur(new JoueurEntity());
+        adversaire.setCoup(CoupEnum.TRAHIR);
+        partie.setPartiesJoueur(List.of(adversaire));
+
+        CoupEnum coup = strategie.getCoup(List.of(partie));
+        assertEquals(CoupEnum.COOPERER, coup);
+        assertEquals(1, strategie.getTrahisonsAdversaire());
+    }
+
+    @Test
+    void testTrahisonDeuxFois() {
+        PartieJoueurEntity adversaire = new PartieJoueurEntity();
+        adversaire.setJoueur(new JoueurEntity());
+        adversaire.setCoup(CoupEnum.TRAHIR);
+        partie.setPartiesJoueur(List.of(adversaire));
+
+        CoupEnum coup1 = strategie.getCoup(List.of(partie));
+        assertEquals(CoupEnum.COOPERER, coup1);
+        assertEquals(1, strategie.getTrahisonsAdversaire());
+
+        adversaire.setCoup(CoupEnum.TRAHIR);
+        CoupEnum coup2 = strategie.getCoup(List.of(partie));
+        assertEquals(CoupEnum.TRAHIR, coup2);
+        assertEquals(2, strategie.getCoupsCooperationRestants());
+    }
+
+    @Test
+    void testCooperationApresTrahison() {
+        PartieJoueurEntity adversaire = new PartieJoueurEntity();
+        adversaire.setJoueur(new JoueurEntity());
+        adversaire.setCoup(CoupEnum.TRAHIR);
+        partie.setPartiesJoueur(List.of(adversaire));
+
+        strategie.getCoup(List.of(partie));
+
+        adversaire.setCoup(CoupEnum.COOPERER);
+
+        CoupEnum coup = strategie.getCoup(List.of(partie));
+
+        assertEquals(CoupEnum.COOPERER, coup);
+        assertEquals(1, strategie.getTrahisonsAdversaire());
+        assertEquals(1, strategie.getCoupsCooperationRestants());
+    }
+
 
 }

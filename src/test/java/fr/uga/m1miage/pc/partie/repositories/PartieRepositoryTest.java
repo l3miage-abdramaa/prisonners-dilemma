@@ -26,7 +26,7 @@ class PartieRepositoryTest {
     @Test
     void findByJeuIdAndStatut() {
 
-        // Given
+
         JeuEntity jeu = JeuEntity
                 .builder()
                 .statut(StatutJeuEnum.EN_COURS)
@@ -37,12 +37,12 @@ class PartieRepositoryTest {
                 .jeu(jeu)
                 .build();
         StatutPartieEnum statutPartieEnum = StatutPartieEnum.EN_COURS;
-        // When
+
         when(partieRepository.findByJeuIdAndStatut(jeu.getId(), statutPartieEnum)).thenReturn(partie);
 
         PartieEntity result = partieRepository.findByJeuIdAndStatut(jeu.getId(), statutPartieEnum);
 
-        // Then
+
         assertThat(result).isNotNull();
         assertThat(result.getStatut()).isEqualTo(StatutPartieEnum.EN_COURS);
         assertThat(result.getJeu()).isEqualTo(jeu);
