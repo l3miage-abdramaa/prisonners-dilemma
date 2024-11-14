@@ -31,7 +31,7 @@ public class PartieController {
             @PathVariable UUID idJoueur,
             @RequestBody CoupRequest coupRequest
     ) {
-        PartieJoueurEntity partieJoueur = partieService.joueurCoup(idJoueur,idJeu,coupRequest.getCoup());
+        PartieJoueurEntity partieJoueur = partieService.jouerCoup(idJoueur,idJeu,coupRequest.getCoup());
         PartieJoueurDTO partieJoueurDTO = GlobalMapper.INSTANCE.mapPartieJoueurEntityToPartieJoueurDTO(partieJoueur);
         return ResponseEntity.ok(partieJoueurDTO);
     }

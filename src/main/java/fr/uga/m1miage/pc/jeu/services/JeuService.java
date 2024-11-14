@@ -11,10 +11,12 @@ import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class JeuService {
     @Autowired
     JoueurRepository joueurRepository ;
