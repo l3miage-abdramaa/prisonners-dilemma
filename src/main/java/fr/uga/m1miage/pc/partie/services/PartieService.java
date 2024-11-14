@@ -16,6 +16,7 @@ import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
 import lombok.extern.slf4j.Slf4j;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
@@ -31,7 +32,8 @@ public class PartieService {
 
     private final PartieJoueurRepository partieJoueurRepository;
 
-    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
+    @Autowired
+    private JeuSseManager jeuSseManager;
 
     public PartieService(JeuRepository jeuRepository, JoueurRepository joueurRepository, PartieRepository partieRepository, PartieJoueurRepository partieJoueurRepository) {
         this.jeuRepository = jeuRepository;
@@ -97,9 +99,6 @@ public class PartieService {
                     .joueur(joueurAbandonne)
                     .build();
             partieJoueurRepository.save(partieJoueur);
-
-            // Terminer la partie après le tour du serveur
-            terminerPartie(partieEnCours);
         }
 
 

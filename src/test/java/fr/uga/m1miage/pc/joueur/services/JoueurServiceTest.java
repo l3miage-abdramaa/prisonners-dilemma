@@ -1,14 +1,19 @@
 package fr.uga.m1miage.pc.joueur.services;
 
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -32,6 +37,11 @@ class JoueurServiceTest {
     @Mock
     private JeuRepository jeuRepository;
 
+    @MockBean
+    private JeuSseManager jeuSseManager;
+
+    @BeforeEach public void setup() { MockitoAnnotations.openMocks(this); }
+
 
     @Test
     void testAbandonnerJeu() {
@@ -46,8 +56,7 @@ class JoueurServiceTest {
         when(joueurRepository.findById(joueurId)).thenReturn(Optional.of(joueur));
         when(joueurRepository.save(any(JoueurEntity.class))).thenReturn(joueur);
 
-        JoueurEntity result;
-        result = joueurService.abandonnerJeu(joueurId, strategie);
+        JoueurEntity result = joueurService.abandonnerJeu(joueurId, strategie);
 
         assertNotNull(result);
         assertEquals(strategie, result.getStrategie());

@@ -3,6 +3,7 @@ package fr.uga.m1miage.pc.partie.services;
 import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
@@ -12,16 +13,23 @@ import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
+
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 
@@ -44,6 +52,13 @@ class PartieServiceTest {
 
     @Mock
     private PartieJoueurRepository partieJoueurRepository;
+
+    @MockBean
+    private JeuSseManager jeuSseManager;
+
+    @BeforeEach public void setup() { 
+        MockitoAnnotations.openMocks(this);
+    }
 
     @Test
     void testJoueurCoup() {
@@ -100,6 +115,7 @@ class PartieServiceTest {
 
         PartieJoueurEntity result = partieService.joueurCoup(joueurId, jeuId, coup);
         assertNotNull(result);
+        verify(jeuSseManager).notifier(jeuId);
     }
 
     @Test
