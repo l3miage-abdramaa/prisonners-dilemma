@@ -30,7 +30,7 @@ class DonnantDonnantStrategieTest {
 
     @BeforeEach
     void setUp() {
-        MockitoAnnotations.openMocks(this); // Initialise les mocks
+        MockitoAnnotations.openMocks(this);
         strategie = new DonnantDonnantStrategie();
         parties = new ArrayList<>();
 
@@ -38,7 +38,6 @@ class DonnantDonnantStrategieTest {
 
     @Test
     void testGetCoup_AucunePartiePrecedente() {
-        // Cas où il n'y a pas de partie précédente
         PartieEntity partieEnCours = new PartieEntity();
         partieEnCours.setStatut(StatutPartieEnum.EN_COURS);
         partieEnCours.setOrdre(1);
@@ -49,7 +48,6 @@ class DonnantDonnantStrategieTest {
 
     @Test
     void testGetCoup_PartiePrecedenteSansJoueurAdverse() {
-        // Cas où la partie précédente n'a pas de joueur adverse
         PartieEntity partieEnCours = new PartieEntity();
         partieEnCours.setStatut(StatutPartieEnum.EN_COURS);
         partieEnCours.setOrdre(2);
@@ -74,7 +72,7 @@ class DonnantDonnantStrategieTest {
 
         PartieEntity precedentePartie = new PartieEntity();
         precedentePartie.setOrdre(1);
-        precedentePartie.setStatut(StatutPartieEnum.EN_COURS); // Assurez-vous que la partie précédente est en cours
+        precedentePartie.setStatut(StatutPartieEnum.EN_COURS);
 
         JoueurEntity joueurAdverse = new JoueurEntity();
         joueurAdverse.setNomJoueur("Adversaire");
@@ -89,11 +87,8 @@ class DonnantDonnantStrategieTest {
 
         parties.add(precedentePartie);
         parties.add(partieEnCours);
-
-        // Appel de la méthode
         String coup = String.valueOf(strategie.getCoup(parties));
 
-        // Vérifiez le coup retourné
         assertEquals("COOPERER", coup);
     }
 
@@ -101,13 +96,11 @@ class DonnantDonnantStrategieTest {
 
     @Test
     void testJoueursAvecAbandonNull() {
-        // Créer un joueur adverse avec un état d'abandon null
         JoueurEntity joueurAdverse = JoueurEntity
                 .builder()
                 .abandon(null)
                 .build();
 
-        // Créer une instance de PartieJoueurEntity pour le joueur adverse
         PartieJoueurEntity partieJoueurAdverse = PartieJoueurEntity
                 .builder()
                 .joueur(joueurAdverse)
@@ -117,7 +110,6 @@ class DonnantDonnantStrategieTest {
         List<PartieJoueurEntity> partieJoueurs = new ArrayList<>();
         partieJoueurs.add(partieJoueurAdverse);
 
-        // Créer une partie précédente avec le joueur adverse
         PartieEntity precedentePartie = PartieEntity
                 .builder()
                 .ordre(1)
@@ -126,13 +118,10 @@ class DonnantDonnantStrategieTest {
                 .build();
 
 
-        // Créer une liste de parties et ajouter la partie précédente
         List<PartieEntity> parties = new ArrayList<>();
         parties.add(precedentePartie);
 
-        // Simuler la récupération de la partie en cours
 
-        // Vérifiez que le coup est retourné correctement
         CoupEnum coup = strategie.getCoup(parties);
         assertEquals(CoupEnum.COOPERER, coup);
     }

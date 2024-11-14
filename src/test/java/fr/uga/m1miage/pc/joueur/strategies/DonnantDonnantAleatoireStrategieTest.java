@@ -34,9 +34,8 @@ class DonnantDonnantAleatoireStrategieTest {
 
     @Test
     void testGetCoupSansCoupAdversaire() {
-        // Créer une partie sans coup de l'adversaire
         PartieEntity partieEntity = new PartieEntity();
-        partieEntity.setPartiesJoueur(new ArrayList<>()); // Pas de joueurs
+        partieEntity.setPartiesJoueur(new ArrayList<>());
 
         List<PartieEntity> parties = new ArrayList<>();
         parties.add(partieEntity);
@@ -44,16 +43,15 @@ class DonnantDonnantAleatoireStrategieTest {
         DonnantDonnantAleatoireStrategie strategie = new DonnantDonnantAleatoireStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        // Vérifier que le coup est aléatoire
-        assertNotNull(coup); // Le coup doit être valide
-        assertTrue(coup == CoupEnum.TRAHIR || coup == CoupEnum.COOPERER); // Doit être un coup valide
+        assertNotNull(coup);
+        assertTrue(coup == CoupEnum.TRAHIR || coup == CoupEnum.COOPERER);
     }
 
     @Test
     void testProbabiliteCoupAleatoire() {
-        // Créer une partie avec un coup de l'adversaire
+
         PartieJoueurEntity adversaire = new PartieJoueurEntity();
-        adversaire.setCoup(CoupEnum.TRAHIR); // Simuler un coup de trahison
+        adversaire.setCoup(CoupEnum.TRAHIR);
 
         List<PartieJoueurEntity> partieJoueurEntities = new ArrayList<>();
         partieJoueurEntities.add(adversaire);
@@ -66,7 +64,7 @@ class DonnantDonnantAleatoireStrategieTest {
 
         DonnantDonnantAleatoireStrategie strategie = new DonnantDonnantAleatoireStrategie();
 
-        // Compter les coups aléatoires sur plusieurs essais
+
         int randomCoupCount = 0;
         int totalTests = 1000;
 
@@ -77,8 +75,8 @@ class DonnantDonnantAleatoireStrategieTest {
             }
         }
 
-        // Vérifier que le nombre de coups aléatoires est raisonnable
+
         double randomProbability = (double) randomCoupCount / totalTests;
-        assertTrue(randomProbability < 0.3); // Moins de 30% de coups aléatoires
+        assertTrue(randomProbability < 0.3);
     }
 }

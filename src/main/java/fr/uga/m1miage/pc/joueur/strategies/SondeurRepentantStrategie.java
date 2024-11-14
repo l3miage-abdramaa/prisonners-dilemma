@@ -12,7 +12,7 @@ public class SondeurRepentantStrategie implements StrategieInterface {
 
     private CoupEnum dernierCoupAdversaire;
     private SecureRandom random = new SecureRandom();
-    private double probabiliteTrahison = 0.3; // 30% de chance de trahir
+    private double probabiliteTrahison = 0.3;
 
     @Override
     public CoupEnum getCoup(List<PartieEntity> parties) {

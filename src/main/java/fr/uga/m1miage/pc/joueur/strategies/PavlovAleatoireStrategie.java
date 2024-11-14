@@ -15,33 +15,27 @@ public class PavlovAleatoireStrategie implements StrategieInterface {
 
     @Override
     public CoupEnum getCoup(List<PartieEntity> parties) {
-        // Si c'est le premier coup, coopérer par défaut
         if (parties.isEmpty()) {
             dernierCoup = CoupEnum.COOPERER;
             return dernierCoup;
         }
 
-        // Récupérer la dernière partie et le dernier coup de l'adversaire
         PartieEntity dernierePartie = parties.get(parties.size() - 1);
-        PartieJoueurEntity dernierPartieJoueur = dernierePartie.getPartiesJoueur().get(0); // Supposons que l'adversaire est le premier joueur
-
+        PartieJoueurEntity dernierPartieJoueur = dernierePartie.getPartiesJoueur().get(0);
         if ((dernierPartieJoueur.getScore() == 5 || dernierPartieJoueur.getScore() == 3) && random.nextDouble() < 0.7) {
-                return dernierCoup != null ? dernierCoup : CoupEnum.COOPERER; // Coopérer par défaut si aucun coup précédent
+                return dernierCoup != null ? dernierCoup : CoupEnum.COOPERER;
         }
 
-
-        // Déterminer le coup à jouer en fonction du dernier coup de l'adversaire
         CoupEnum dernierCoupAdversaire = dernierPartieJoueur.getCoup();
 
         if (dernierCoupAdversaire == CoupEnum.COOPERER) {
-            dernierCoup = CoupEnum.COOPERER; // Si l'adversaire a coopéré, coopérer
+            dernierCoup = CoupEnum.COOPERER;
         } else {
-            dernierCoup = CoupEnum.TRAHIR; // Si l'adversaire a trahi, trahir
+            dernierCoup = CoupEnum.TRAHIR;
         }
 
-        // Si on ne répète pas le dernier coup, faire un choix aléatoire
         if (random.nextDouble() < 0.3) {
-            dernierCoup = random.nextBoolean() ? CoupEnum.COOPERER : CoupEnum.TRAHIR; // Choix aléatoire
+            dernierCoup = random.nextBoolean() ? CoupEnum.COOPERER : CoupEnum.TRAHIR;
         }
 
         return dernierCoup;

@@ -21,15 +21,12 @@ public class RancunierDouxStrategie implements StrategieInterface {
             return CoupEnum.COOPERER;
         }
 
-        // Vérifier le dernier coup de l'adversaire
         CoupEnum dernierCoupAdversaire = adversaire.getCoup();
 
-        // Si l'adversaire a trahi, punir en trahissant
         if (dernierCoupAdversaire == CoupEnum.TRAHIR) {
-            return CoupEnum.TRAHIR; // Trahir en réponse à la trahison
+            return CoupEnum.TRAHIR;
         }
 
-        // Si l'adversaire a coopéré, coopérer
         return CoupEnum.COOPERER;
     }
 }

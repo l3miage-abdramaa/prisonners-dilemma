@@ -137,10 +137,18 @@ class StrategieFactoryTest {
         assertTrue(strategie instanceof RancunierDouxStrategie);
     }
 
+
+    @Test
+    void testGetStrategieDonnantPourDeuxDonnants() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_POUR_DEUX_DONNANTS);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof DonnantPourDeuxDonnantsStrategie);
+    }
+
     @Test
     void testGetStrategieInconnue() {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> {
-            StrategieFactory.getStrategie(null); // Tester avec une valeur nulle
+            StrategieFactory.getStrategie(null);
         });
         String expectedMessage = "Strategie inconnue : null";
         String actualMessage = exception.getMessage();

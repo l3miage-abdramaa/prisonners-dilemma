@@ -4,36 +4,40 @@ import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 
-import java.security.SecureRandom;
 import java.util.List;
 
-public class SondeurNaifStrategie implements StrategieInterface{
+public class DonnantPourDeuxDonnantsStrategie implements StrategieInterface {
 
-    private CoupEnum dernierCoupAdverse = null;
-    private final SecureRandom secureRandom;
+    private CoupEnum dernierCoupAdverse;
+    private int compteurCoupIdentique;
 
-    public SondeurNaifStrategie() {
-        this.dernierCoupAdverse = null;
-        this.secureRandom = new SecureRandom();
-    }
 
 
     @Override
     public CoupEnum getCoup(List<PartieEntity> parties) {
+
         List<PartieJoueurEntity> partieJoueurEntities = parties.stream()
                 .flatMap(partie -> partie.getPartiesJoueur().stream())
                 .toList();
+
         if (!partieJoueurEntities.isEmpty()) {
             PartieJoueurEntity dernierPartieJoueur = partieJoueurEntities.get(partieJoueurEntities.size() - 1);
             CoupEnum coupAdverse = dernierPartieJoueur.getCoup();
+
             if (coupAdverse != null) {
+                if (coupAdverse.equals(dernierCoupAdverse)) {
+                    compteurCoupIdentique++;
+                } else {
+                    compteurCoupIdentique = 1;
+                }
                 dernierCoupAdverse = coupAdverse;
             }
         }
 
-        if (dernierCoupAdverse != null && dernierCoupAdverse.equals(CoupEnum.COOPERER) && secureRandom.nextDouble() < 0.2) {
-            return CoupEnum.TRAHIR;
+        if (compteurCoupIdentique >= 2) {
+            return dernierCoupAdverse;
         }
-        return dernierCoupAdverse != null ? dernierCoupAdverse : CoupEnum.COOPERER;
+
+        return CoupEnum.COOPERER;
     }
 }

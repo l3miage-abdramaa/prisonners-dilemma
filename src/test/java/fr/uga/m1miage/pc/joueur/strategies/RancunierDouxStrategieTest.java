@@ -14,37 +14,26 @@ import static org.mockito.Mockito.*;
 class RancunierDouxStrategieTest {
 
     @Test
-    void testRancunierDouxStrategie() {
-        // Créer les mocks
-        JoueurEntity joueur1 = mock(JoueurEntity.class);
+    void testRancunierDouxStrategie() {JoueurEntity joueur1 = mock(JoueurEntity.class);
         JoueurEntity joueur2 = mock(JoueurEntity.class);
         PartieEntity partie = mock(PartieEntity.class);
         PartieJoueurEntity partieJoueur1 = mock(PartieJoueurEntity.class);
         PartieJoueurEntity partieJoueur2 = mock(PartieJoueurEntity.class);
 
-        // Configurer les mocks
         when(joueur1.getNomJoueur()).thenReturn("Joueur 1");
         when(joueur2.getNomJoueur()).thenReturn("Joueur 2");
         when(partieJoueur1.getJoueur()).thenReturn(joueur1);
         when(partieJoueur2.getJoueur()).thenReturn(joueur2);
         when(partie.getPartiesJoueur()).thenReturn(List.of(partieJoueur1, partieJoueur2));
 
-        // Créer une instance de `RancunierDouxStrategie`
         RancunierDouxStrategie strategie = new RancunierDouxStrategie();
 
-        // Premier coup, l'adversaire n'a pas encore joué
         CoupEnum coup1 = strategie.getCoup(List.of(partie));
         assertEquals(CoupEnum.COOPERER, coup1);
 
-        // Simuler une trahison de l'adversaire
         when(partieJoueur2.getCoup()).thenReturn(CoupEnum .TRAHIR);
-
-
-
-        // Simuler que l'adversaire coopère maintenant
         when(partieJoueur2.getCoup()).thenReturn(CoupEnum.COOPERER);
 
-        // Troisième coup, l'adversaire coopère
         CoupEnum coup3 = strategie.getCoup(List.of(partie));
         assertEquals(CoupEnum.COOPERER, coup3);
     }
