@@ -16,15 +16,16 @@ public class JeuSseManager {
 
     private AtomicReference<Map<String, Map<String, SseEmitter>>> mapJeuSseEmitters;
 
-    public JeuSseManager(Map<String, Map<String, SseEmitter>> mapJeuSseEmitters) {
-        this.mapJeuSseEmitters = new AtomicReference<>(mapJeuSseEmitters);
+    public JeuSseManager() {
+        this.mapJeuSseEmitters = new AtomicReference<>(new ConcurrentHashMap<>());
     }
 
-    synchronized public SseEmitter creerNouveauSse(Long idJeu, String idJoueur) throws IOException {
+
+    public synchronized SseEmitter creerNouveauSse(Long idJeu, String idJoueur) throws IOException {
         Map<String, SseEmitter> mapJoueurSseEmitters = getMapJoueurSseEmitters(idJeu);
-        
+
         if (mapJoueurSseEmitters == null) {
-            mapJoueurSseEmitters = new ConcurrentHashMap<>();      
+            mapJoueurSseEmitters = new ConcurrentHashMap<>();
         }
 
         SseEmitter joueurSseEmitter = getJoueurSseEmitter(idJoueur, mapJoueurSseEmitters);
@@ -33,7 +34,7 @@ public class JeuSseManager {
             joueurSseEmitter.complete();
             supprimerJoueurSseEmitter(idJoueur, mapJoueurSseEmitters);
         }
-        
+
         SseEmitter sseEmitter = new SseEmitter(600000L);
         sseEmitter.onCompletion(() -> {
             Map<String, SseEmitter> mapJoueurSseEmitters2 = getMapJoueurSseEmitters(idJeu);
@@ -63,7 +64,7 @@ public class JeuSseManager {
         mapJeuSseEmitters.get().remove(idJeu.toString());
     }
 
-    private void supprimerJoueurSseEmitter(String idJoueur, Map<String, SseEmitter> mapJoueurSseEmitters) {
+    public void supprimerJoueurSseEmitter(String idJoueur, Map<String, SseEmitter> mapJoueurSseEmitters) {
         mapJoueurSseEmitters.remove(idJoueur);
     }
 

@@ -14,38 +14,40 @@ import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.UUID;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class PartieService {
-    private final JeuRepository jeuRepository;
 
-    private final JoueurRepository joueurRepository;
+    @Autowired
+    private JeuRepository jeuRepository;
 
-    private final PartieRepository partieRepository;
+    @Autowired
+    private  JoueurRepository joueurRepository;
 
-    private final PartieJoueurRepository partieJoueurRepository;
+    @Autowired
+    private  PartieRepository partieRepository;
+
+    @Autowired
+    private PartieJoueurRepository partieJoueurRepository;
 
     @Autowired
     private JeuSseManager jeuSseManager;
 
-    public PartieService(JeuRepository jeuRepository, JoueurRepository joueurRepository, PartieRepository partieRepository, PartieJoueurRepository partieJoueurRepository) {
-        this.jeuRepository = jeuRepository;
-        this.joueurRepository = joueurRepository;
-        this.partieRepository = partieRepository;
-        this.partieJoueurRepository = partieJoueurRepository;
-    }
 
-    public PartieJoueurEntity joueurCoup(UUID idJoueur, Long idJeu, CoupEnum coup) {
+    public PartieJoueurEntity jouerCoup(UUID idJoueur, Long idJeu, CoupEnum coup) {
         JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
-        PartieEntity partieEnCours = partieRepository.findByJeuIdAndStatut(idJeu,StatutPartieEnum.EN_COURS);
 
+        PartieEntity partieEnCours = partieRepository.findByJeuIdAndStatut(idJeu,StatutPartieEnum.EN_COURS);
 
         PartieJoueurEntity partieJoueur = PartieJoueurEntity
                 .builder()
@@ -60,6 +62,7 @@ public class PartieService {
             jouerServeurCoup(idJeu);
         }
 
+        log.info("Peut terminer la partie ? "+(partieEnCours.getPartiesJoueur().size() == 2));
         if(partieEnCours.getPartiesJoueur().size() == 2) {
             terminerPartie(partieEnCours);
         }
@@ -84,7 +87,6 @@ public class PartieService {
         return false;
     }
 
-
     public void jouerServeurCoup(Long idJeu) {
         JeuEntity jeu = jeuRepository.findById(idJeu).orElseThrow();
         JoueurEntity joueurAbandonne = jeu.getJoueurs().stream().filter(joueur -> joueur.getAbandon() != null).findFirst().orElse(null);
@@ -99,9 +101,8 @@ public class PartieService {
                     .joueur(joueurAbandonne)
                     .build();
             partieJoueurRepository.save(partieJoueur);
+
         }
-
-
     }
 
 

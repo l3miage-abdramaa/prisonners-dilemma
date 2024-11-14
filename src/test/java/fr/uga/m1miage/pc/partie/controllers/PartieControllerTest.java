@@ -72,7 +72,7 @@ class PartieControllerTest {
                 .joueur(joueur)
                 .score(1)
                 .build();
-        when(partieService.joueurCoup(joueur.getId(),jeu.getId(),coupRequest.getCoup())).thenReturn(partieJoueur);
+        when(partieService.jouerCoup(joueur.getId(),jeu.getId(),coupRequest.getCoup())).thenReturn(partieJoueur);
         ResponseEntity<PartieJoueurDTO> response = partieController.jouerCoup(jeu.getId(), joueur.getId(),coupRequest);
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody().getScore()).isEqualTo(1);
