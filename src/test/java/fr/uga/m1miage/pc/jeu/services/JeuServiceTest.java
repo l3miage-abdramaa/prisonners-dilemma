@@ -3,6 +3,7 @@ package fr.uga.m1miage.pc.jeu.services;
 import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
+import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
@@ -11,6 +12,7 @@ import fr.uga.m1miage.pc.partie.repository.PartieRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
+import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -41,6 +43,9 @@ class JeuServiceTest {
     @MockBean
     private PartieRepository partieRepository;
 
+
+    @MockBean
+    private JeuSseManager jeuSseManager;
 
 
     @BeforeEach
@@ -112,6 +117,7 @@ class JeuServiceTest {
         verify(joueurRepository, times(1)).save(any(JoueurEntity.class));
         verify(partieRepository, times(1)).save(any(PartieEntity.class));
         verify(jeuRepository, times(1)).save(jeu);
+        verify(jeuSseManager).notifier(jeuId);
     }
 
 

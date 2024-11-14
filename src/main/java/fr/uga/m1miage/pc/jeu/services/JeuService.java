@@ -23,7 +23,8 @@ public class JeuService {
     @Autowired
     PartieRepository partieRepository;
 
-    private JeuSseManager jeuSseManager = JeuSseManager.getInstance();
+    @Autowired
+    private JeuSseManager jeuSseManager;
 
     public JeuEntity creerJeu(String nomJoueur, int nombreParties) {
         try {
