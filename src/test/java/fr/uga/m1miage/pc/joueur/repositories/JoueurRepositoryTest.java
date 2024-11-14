@@ -71,15 +71,15 @@ class JoueurRepositoryTest {
 
         when(joueurRepository.save(joueur)).thenReturn(joueur);
 
-        // Act
+
         joueur.setStrategie(StrategieEnum.TOUJOURS_TRAHIR);
         JoueurEntity updatedJoueur = joueurRepository.save(joueur);
 
-        // Assert
+
         assertNotNull(updatedJoueur);
         assertEquals(StrategieEnum.TOUJOURS_TRAHIR, updatedJoueur.getStrategie());
 
-        // Vérifie que findById et save ont été appelés
+
         verify(joueurRepository, times(1)).save(joueur);
     }
 }

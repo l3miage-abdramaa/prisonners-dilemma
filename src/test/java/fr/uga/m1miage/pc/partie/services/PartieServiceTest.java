@@ -140,12 +140,12 @@ class PartieServiceTest {
         JeuEntity jeu = new JeuEntity();
         JoueurEntity joueur1 = new JoueurEntity();
         JoueurEntity joueur2 = new JoueurEntity();
-        joueur1.setAbandon(true); // Ce joueur a abandonné
-        joueur2.setAbandon(null); // Ce joueur continue
+        joueur1.setAbandon(true);
+        joueur2.setAbandon(null);
         jeu.setJoueurs(Arrays.asList(joueur1, joueur2));
         when(jeuRepository.findById(idJeu)).thenReturn(Optional.of(jeu));
         boolean result = partieService.regarderSiJoueurAdverseAAbandonne(idJeu);
-        assertTrue(result); // On s'attend à ce que le joueur adverse ait abandonné
+        assertTrue(result);
     }
 
 
@@ -233,7 +233,6 @@ class PartieServiceTest {
 
         when(joueurRepository.findById(joueur.getId())).thenReturn(Optional.empty());
 
-        // Act & Assert
         verify(partieJoueurRepository, never()).save(any(PartieJoueurEntity.class));
     }
 
@@ -281,7 +280,7 @@ class PartieServiceTest {
                 .nombreParties(1)
                 .build();
         partieService.creerNouvellePartie(jeu, 2);
-        verify(partieRepository, never()).save(any(PartieEntity.class)); // Vérifie que save n'a pas été appelé
+        verify(partieRepository, never()).save(any(PartieEntity.class));
 
     }
 
@@ -289,28 +288,28 @@ class PartieServiceTest {
 
     @Test
     void testTerminerPartie() {
-        // Création d'un jeu et de joueurs
+
         JeuEntity jeu = new JeuEntity();
         PartieJoueurEntity joueur1 = new PartieJoueurEntity();
-        joueur1.setCoup(CoupEnum.COOPERER); // Exemple de coup
+        joueur1.setCoup(CoupEnum.COOPERER);
         PartieJoueurEntity joueur2 = new PartieJoueurEntity();
-        joueur2.setCoup(CoupEnum.TRAHIR); // Exemple de coup
+        joueur2.setCoup(CoupEnum.TRAHIR);
 
-        // Création de la partie avec des joueurs
+
         PartieEntity partieEnCours = PartieEntity.builder()
                 .jeu(jeu)
                 .ordre(1)
-                .partiesJoueur(new ArrayList<>(Arrays.asList(joueur1, joueur2))) // Ajout de joueurs
+                .partiesJoueur(new ArrayList<>(Arrays.asList(joueur1, joueur2)))
                 .build();
 
-        // Stubbing des méthodes
+
         doNothing().when(partieService).calculerScore(anyList());
         doNothing().when(partieService).creerNouvellePartie(any(JeuEntity.class), anyInt());
 
-        // Appel de la méthode à tester
+
         partieService.terminerPartie(partieEnCours);
 
-        // Vérifications
+
         verify(partieService).calculerScore(partieEnCours.getPartiesJoueur());
         verify(partieService).creerNouvellePartie(partieEnCours.getJeu(), partieEnCours.getOrdre() + 1);
         assertEquals(StatutPartieEnum.TERMINE, partieEnCours.getStatut());
@@ -382,7 +381,7 @@ class PartieServiceTest {
 
 
 
-    // ------------------------------------------------------- //
+
 
     @Test
     void testJoueurCoupAdverseAbandonne() {

@@ -15,14 +15,12 @@ class RancunierStrategieTest {
 
     @Test
     void testGetCoupAvecCoupTrahir() {
-        // Créer un joueur avec un abandon à null
         JoueurEntity joueur = new JoueurEntity();
-        joueur.setAbandon(null); // Assurez-vous que l'abandon est null
+        joueur.setAbandon(null);
 
-        // Créer une partie avec un coup de trahison
         PartieJoueurEntity partieJoueurEntity = new PartieJoueurEntity();
-        partieJoueurEntity.setJoueur(joueur); // Associez le joueur à la partie
-        partieJoueurEntity.setCoup(CoupEnum.TRAHIR); // Simuler un coup de trahison
+        partieJoueurEntity.setJoueur(joueur);
+        partieJoueurEntity.setCoup(CoupEnum.TRAHIR);
 
         List<PartieJoueurEntity> partieJoueurEntities = new ArrayList<>();
         partieJoueurEntities.add(partieJoueurEntity);
@@ -36,14 +34,13 @@ class RancunierStrategieTest {
         RancunierStrategie strategie = new RancunierStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        assertEquals(CoupEnum.TRAHIR, coup); // Doit trahir car un coup de trahison a été joué
+        assertEquals(CoupEnum.TRAHIR, coup);
     }
 
     @Test
     void testGetCoupSansCoupTrahir() {
-        // Créer une partie sans coup de trahison
         PartieJoueurEntity partieJoueurEntity = new PartieJoueurEntity();
-        partieJoueurEntity.setCoup(CoupEnum.COOPERER); // Simuler un coup de coopération
+        partieJoueurEntity.setCoup(CoupEnum.COOPERER);
 
         partieJoueurEntity.setJoueur(new JoueurEntity());
         List<PartieJoueurEntity> partieJoueurEntities = new ArrayList<>();
@@ -58,12 +55,11 @@ class RancunierStrategieTest {
         RancunierStrategie strategie = new RancunierStrategie();
         CoupEnum coup = strategie.getCoup(parties);
 
-        assertEquals(CoupEnum.COOPERER, coup); // Doit trahir car aucun coup de trahison n'a été joué
+        assertEquals(CoupEnum.COOPERER, coup);
     }
 
     @Test
     void testGetCoupAvecPartiesVides() {
-        // Tester avec une liste de parties vide
         List<PartieEntity> parties = new ArrayList<>();
 
         RancunierStrategie strategie = new RancunierStrategie();

@@ -31,50 +31,44 @@ class PavlovStrategieTest {
     void testRepetitionCoup() {
         List<PartieEntity> parties = new ArrayList<>();
 
-        // Simuler un coup précédent
         PartieEntity partie = new PartieEntity();
         PartieJoueurEntity partieJoueur = new PartieJoueurEntity();
-        partieJoueur.setScore(5); // Score du dernier tour
-        partieJoueur.setCoup(CoupEnum.COOPERER); // Dernier coup de l 'adversaire
+        partieJoueur.setScore(5);
+        partieJoueur.setCoup(CoupEnum.COOPERER);
         partie.setPartiesJoueur(List.of(partieJoueur));
         parties.add(partie);
 
-        // Premier coup après le score de 5
         CoupEnum coup = pavlovStrategie.getCoup(parties);
-        assertEquals(CoupEnum.COOPERER, coup); // Doit répéter le dernier coup
+        assertEquals(CoupEnum.COOPERER, coup);
     }
 
     @Test
      void testCoupAdversaireCooperer() {
         List<PartieEntity> parties = new ArrayList<>();
 
-        // Simuler un coup précédent
         PartieEntity partie = new PartieEntity();
         PartieJoueurEntity partieJoueur = new PartieJoueurEntity();
-        partieJoueur.setScore(2); // Score du dernier tour
-        partieJoueur.setCoup(CoupEnum.COOPERER); // Dernier coup de l'adversaire
+        partieJoueur.setScore(2);
+        partieJoueur.setCoup(CoupEnum.COOPERER);
         partie.setPartiesJoueur(List.of(partieJoueur));
         parties.add(partie);
 
-        // Vérifier le coup après que l'adversaire a coopéré
         CoupEnum coup = pavlovStrategie.getCoup(parties);
-        assertEquals(CoupEnum.COOPERER, coup); // Doit coopérer
+        assertEquals(CoupEnum.COOPERER, coup);
     }
 
     @Test
      void testCoupAdversaireTrahir() {
         List<PartieEntity> parties = new ArrayList<>();
 
-        // Simuler un coup précédent
         PartieEntity partie = new PartieEntity();
         PartieJoueurEntity partieJoueur = new PartieJoueurEntity();
-        partieJoueur.setScore(2); // Score du dernier tour
-        partieJoueur.setCoup(CoupEnum.TRAHIR); // Dernier coup de l'adversaire
+        partieJoueur.setScore(2);
+        partieJoueur.setCoup(CoupEnum.TRAHIR);
         partie.setPartiesJoueur(List.of(partieJoueur));
         parties.add(partie);
 
-        // Vérifier le coup après que l'adversaire a trahi
         CoupEnum coup = pavlovStrategie.getCoup(parties);
-        assertEquals(CoupEnum.TRAHIR, coup); // Doit trahir
+        assertEquals(CoupEnum.TRAHIR, coup);
     }
 }

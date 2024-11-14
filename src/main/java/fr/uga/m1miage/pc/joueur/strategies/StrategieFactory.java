@@ -29,6 +29,7 @@ public class StrategieFactory {
             case GRADUEL -> new GraduelStrategie();
             case DONNANT_DONNANT_SOUPCONNEUX -> new DonnantDonnantSoupconneuxStrategie();
             case RANCUNIEUX_DOUX -> new RancunierDouxStrategie();
+            case DONNANT_POUR_DEUX_DONNANTS -> new DonnantPourDeuxDonnantsStrategie();
         };
     }
 }

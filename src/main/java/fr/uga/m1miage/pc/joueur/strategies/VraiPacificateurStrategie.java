@@ -24,7 +24,7 @@ public class VraiPacificateurStrategie implements StrategieInterface {
     public CoupEnum getCoup(List<PartieEntity> parties) {
         if (!parties.isEmpty()) {
             PartieEntity dernierePartie = parties.get(parties.size() - 1);
-            dernierCoupAdversaire = dernierePartie.getPartiesJoueur().get(0).getCoup(); // Supposons que l'adversaire est le premier joueur
+            dernierCoupAdversaire = dernierePartie.getPartiesJoueur().get(0).getCoup();
         }
 
         if (dernierCoupAdversaire == null) {
@@ -34,11 +34,9 @@ public class VraiPacificateurStrategie implements StrategieInterface {
             if (nombreDeTrahisonsConsecutives >= 2) {
                 return CoupEnum.TRAHIR;
             } else {
-                // Essayer de faire la paix avec 50% de chance de coopérer
                 return random.nextBoolean() ? CoupEnum.COOPERER : CoupEnum.TRAHIR;
             }
         } else {
-            // Si l'adversaire a coopéré, continuer à coopérer
             nombreDeTrahisonsConsecutives = 0;
             return CoupEnum.COOPERER;
         }

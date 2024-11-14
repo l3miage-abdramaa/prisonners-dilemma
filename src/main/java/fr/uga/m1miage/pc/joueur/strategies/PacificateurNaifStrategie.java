@@ -11,7 +11,7 @@ public class PacificateurNaifStrategie implements StrategieInterface {
 
     private CoupEnum dernierCoupAdversaire;
     private SecureRandom random = new SecureRandom();
-    private double probabiliteCooperation = 0.5; // 50% de chance de coopérer après une trahison
+    private double probabiliteCooperation = 0.5;
 
     @Override
     public CoupEnum getCoup(List<PartieEntity> parties) {
