@@ -15,8 +15,6 @@ import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +22,6 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-@Slf4j
 @RequiredArgsConstructor
 public class PartieService {
 
@@ -62,7 +59,6 @@ public class PartieService {
             jouerServeurCoup(idJeu);
         }
 
-        log.info("Peut terminer la partie ? "+(partieEnCours.getPartiesJoueur().size() == 2));
         if(partieEnCours.getPartiesJoueur().size() == 2) {
             terminerPartie(partieEnCours);
         }
