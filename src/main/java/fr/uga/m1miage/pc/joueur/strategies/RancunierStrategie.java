@@ -12,6 +12,7 @@ public class RancunierStrategie implements StrategieInterface {
     public CoupEnum getCoup(List<PartieEntity> parties) {
         List<PartieJoueurEntity> partieJoueurEntities = parties.stream()
                 .flatMap(partie -> partie.getPartiesJoueur().stream()).toList();
+
         PartieJoueurEntity partieJoueurCoupTrahir = partieJoueurEntities.stream()
                 .filter(partieJoueurEntity -> partieJoueurEntity.getJoueur().getAbandon() == null)
                 .filter(partieJoueurEntity -> partieJoueurEntity.getCoup().equals(CoupEnum.TRAHIR)).findAny()

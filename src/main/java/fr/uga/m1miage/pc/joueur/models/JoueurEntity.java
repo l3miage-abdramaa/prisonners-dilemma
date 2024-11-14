@@ -27,8 +27,6 @@ public class JoueurEntity {
 
     private Boolean abandon ;
 
-    private String avatar;
-
     @Enumerated(EnumType.STRING)
     private StrategieEnum strategie;
 

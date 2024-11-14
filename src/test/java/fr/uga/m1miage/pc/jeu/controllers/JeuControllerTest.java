@@ -175,7 +175,7 @@ class JeuControllerTest {
         }
 
         @Test
-        public void testEventEmitter() throws Exception {
+        void testEventEmitter() throws Exception {
                 Long idJeu = 1L;
                 String idJoueur = "joueur1";
                 SseEmitter sseEmitter = new SseEmitter();

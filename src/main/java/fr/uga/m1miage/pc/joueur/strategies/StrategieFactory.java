@@ -25,6 +25,10 @@ public class StrategieFactory {
             case VRAI_PACIFICATEUR -> new VraiPacificateurStrategie();
             case PAVLOV -> new PavlovStrategie();
             case PAVLOV_ALEATOIRE -> new PavlovAleatoireStrategie();
+            case ADAPTATIF -> new AdaptatifStrategie();
+            case GRADUEL -> new GraduelStrategie();
+            case DONNANT_DONNANT_SOUPCONNEUX -> new DonnantDonnantSoupconneuxStrategie();
+            case RANCUNIEUX_DOUX -> new RancunierDouxStrategie();
         };
     }
 }
