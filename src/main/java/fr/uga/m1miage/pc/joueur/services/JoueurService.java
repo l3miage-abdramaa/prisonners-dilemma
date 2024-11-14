@@ -5,7 +5,7 @@ import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
-import lombok.extern.slf4j.Slf4j;
+import lombok.RequiredArgsConstructor;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +13,14 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Service
-@Slf4j
+@RequiredArgsConstructor
 public class JoueurService {
-    private final JoueurRepository joueurRepository;
+    @Autowired
+    private JoueurRepository joueurRepository;
 
     @Autowired
     private JeuSseManager jeuSseManager;
 
-    public JoueurService(JoueurRepository joueurRepository) {
-        this.joueurRepository = joueurRepository;
-    }
 
     public JoueurEntity abandonnerJeu(UUID idJoueur, StrategieEnum strategie) {
         Optional<JoueurEntity> joueur = joueurRepository.findById(idJoueur);

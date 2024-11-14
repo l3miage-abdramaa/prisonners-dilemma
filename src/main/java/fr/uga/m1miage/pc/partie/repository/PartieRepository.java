@@ -11,5 +11,6 @@ import java.util.UUID;
 
 @Repository
 public interface PartieRepository extends JpaRepository<PartieEntity, UUID> {
+
     PartieEntity findByJeuIdAndStatut(Long idJeu,StatutPartieEnum statut);
 }

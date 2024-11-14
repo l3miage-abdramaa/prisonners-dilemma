@@ -106,6 +106,36 @@ class StrategieFactoryTest {
         assertTrue(strategie instanceof PavlovAleatoireStrategie);
     }
 
+    @Test
+    void testGetStrategieAdaptatif() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.ADAPTATIF);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof AdaptatifStrategie);
+    }
+
+
+    @Test
+    void testGetStrategieGraduel() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.GRADUEL);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof GraduelStrategie);
+    }
+
+    @Test
+    void testGetStrategieDonnantDonnantSupconneux() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_DONNANT_SOUPCONNEUX);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof DonnantDonnantSoupconneuxStrategie);
+    }
+
+
+
+    @Test
+    void testGetStrategieRancunieuxDoux() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.RANCUNIEUX_DOUX);
+        assertNotNull(strategie);
+        assertTrue(strategie instanceof RancunierDouxStrategie);
+    }
 
     @Test
     void testGetStrategieInconnue() {
