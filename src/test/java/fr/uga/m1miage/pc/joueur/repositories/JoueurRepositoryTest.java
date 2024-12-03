@@ -9,22 +9,27 @@ import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.mockito.junit.jupiter.MockitoSettings;
+import org.mockito.quality.Strictness;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-@DataJpaTest
+@ExtendWith(MockitoExtension.class)
+@MockitoSettings(strictness = Strictness.LENIENT)
 class JoueurRepositoryTest {
 
-    @MockBean
-    private JoueurRepository joueurRepository;
+    @Mock
+    private JoueurRepository joueurRepository ;
 
-    @Autowired
-    private JeuRepository jeuRepository;
 
     @Test
     void testFindByJeuId() {
@@ -67,10 +72,8 @@ class JoueurRepositoryTest {
                 .strategie(StrategieEnum.DONNANT_DONNANT)
                 .build();
 
-        when(joueurRepository.findById(idJoueur)).thenReturn(Optional.of(joueur));
-
         when(joueurRepository.save(joueur)).thenReturn(joueur);
-
+        when(joueurRepository.findById(idJoueur)).thenReturn(Optional.of(joueur));
 
         joueur.setStrategie(StrategieEnum.TOUJOURS_TRAHIR);
         JoueurEntity updatedJoueur = joueurRepository.save(joueur);
