@@ -1,0 +1,45 @@
+name: Test, build and deploy to azure registry
+
+on:
+  push:
+    branches:
+      - develop
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Test with Maven
+        run: mvn test
+
+      - name: Log to azure docker
+        uses: azure/docker-login@v1
+        with:
+          login-server: dilemmeprisonnierregistry.azurecr.io
+          username: ${{ secrets.AZURE_REGISTRY_USERNAME }}
+          password: ${{ secrets.AZURE_REGISTRY_PASSWORD }}
+      
+      - name: Build docker image and push
+        run: |
+          docker build --build-arg DATABASE_URL="${{secrets.DATABASE_URL}}" \
+          -t dilemmeprisonnierregistry.azurecr.io/dilemme-prisonnier:${{github.sha}} .
+          docker push dilemmeprisonnierregistry.azurecr.io/dilemme-prisonnier:${{github.sha}}
+      
+
+      # - name: Deploy to Azure Web App
+      #   uses: azure/webapps-deploy@v2
+      #   with:
+      #     app-name: 'dilemme-prisonnier'
+      #     publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+      #     images: 'dilemmeprisonnierregistry.azurecr.io/dilemme-prisonnier:${{github.sha}}'
