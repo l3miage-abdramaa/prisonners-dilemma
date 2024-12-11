@@ -7,6 +7,8 @@ import org.springframework.core.io.FileSystemResource;
 
 @Configuration
 public class EnvVariableConfig {
+
+    private EnvVariableConfig(){}
     @Bean
     public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
         PropertySourcesPlaceholderConfigurer configurer = new PropertySourcesPlaceholderConfigurer();
