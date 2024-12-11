@@ -10,11 +10,9 @@ import fr.uga.m1miage.pc.jeu.response.JeuDTO;
 import fr.uga.m1miage.pc.jeu.services.JeuService;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.mappers.GlobalMapper;
-import lombok.RequiredArgsConstructor;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -22,18 +20,19 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
 @Controller
-@RequiredArgsConstructor
 @RequestMapping("/jeux")
 public class JeuController {
 
-    @Autowired
-    private JeuService jeuService;
+    private final JeuService jeuService;
+    private final JeuSseManager jeuSseManager;
 
-    @Autowired
-    private JeuSseManager jeuSseManager;
+
+    public JeuController(JeuService jeuService,JeuSseManager jeuSseManager) {
+        this.jeuService = jeuService;
+        this.jeuSseManager = jeuSseManager;
+    }
 
     @GetMapping("{idJeu}/joueurs/{idJoueur}/event")
-    @CrossOrigin("*")
     public SseEmitter eventEmitter(@PathVariable Long idJeu, @PathVariable String idJoueur) throws IOException {
         return jeuSseManager.creerNouveauSse(idJeu, idJoueur);
     }
