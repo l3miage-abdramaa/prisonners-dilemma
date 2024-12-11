@@ -147,6 +147,13 @@
             <version>2.2</version>
         </dependency>
 
+        <dependency>
+            <groupId>fr.uga.miage.m1</groupId>
+            <artifactId>strategie_g02_7</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+
+
     </dependencies>
 
     <build>
