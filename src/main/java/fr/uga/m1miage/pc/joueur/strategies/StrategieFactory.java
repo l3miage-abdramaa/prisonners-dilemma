@@ -1,6 +1,9 @@
 package fr.uga.m1miage.pc.joueur.strategies;
 
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
+import fr.uga.miage.pc.g2_7.Aleatoire;
+import fr.uga.miage.pc.g2_7.ToujoursTrahir;
+
 public class StrategieFactory {
 
     private StrategieFactory(){}
@@ -30,6 +33,8 @@ public class StrategieFactory {
             case DONNANT_DONNANT_SOUPCONNEUX -> new DonnantDonnantSoupconneuxStrategie();
             case RANCUNIEUX_DOUX -> new RancunierDouxStrategie();
             case DONNANT_POUR_DEUX_DONNANTS -> new DonnantPourDeuxDonnantsStrategie();
+            case ALEATOIRE_G02_7 -> new StrategieBinomeAdapter(new Aleatoire());
+            case TOUJOURS_TRAHIR_G02_7 -> new StrategieBinomeAdapter(new ToujoursTrahir());
         };
     }
 }

@@ -1,15 +1,17 @@
-package fr.uga.m1miage.pc.joueur.controllers;
+package fr.uga.m1miage.pc.jeu.controllers;
 
+import fr.uga.m1miage.pc.jeu.controllers.JoueurController;
 import fr.uga.m1miage.pc.jeu.requests.AbandonRequestDTO;
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import fr.uga.m1miage.pc.joueur.responses.JoueurDTO;
-import fr.uga.m1miage.pc.joueur.services.JoueurService;
+import fr.uga.m1miage.pc.jeu.services.JoueurService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.http.HttpStatus;
@@ -24,16 +26,19 @@ import static org.mockito.Mockito.when;
 class JoueurControllerTest {
 
 
+    @Mock
+    private JoueurController joueurController;
+
+    @Mock
     private JoueurService joueurService;
 
     @BeforeEach
     void setup() {
+        MockitoAnnotations.openMocks(this);
         joueurService = Mockito.mock(JoueurService.class);
         joueurController = new JoueurController(joueurService);
     }
 
-    @Mock
-    private JoueurController joueurController;
 
 
     @Test
