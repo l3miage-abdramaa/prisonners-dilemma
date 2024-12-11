@@ -1,22 +1,18 @@
-package fr.uga.m1miage.pc.joueur.services;
+package fr.uga.m1miage.pc.jeu.services;
 
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
-import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
+import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Optional;
 import java.util.UUID;
@@ -30,7 +26,7 @@ import static org.mockito.Mockito.*;
 class JoueurServiceTest {
 
 
-    @InjectMocks
+    @Mock
     private JoueurService joueurService;
 
     @Mock
@@ -40,7 +36,10 @@ class JoueurServiceTest {
     @Mock
     private JeuSseManager jeuSseManager;
 
-    @BeforeEach public void setup() { MockitoAnnotations.openMocks(this); }
+    @BeforeEach public void setup() {
+        MockitoAnnotations.openMocks(this);
+        joueurService = new JoueurService(jeuSseManager,joueurRepository);
+    }
 
 
     @Test

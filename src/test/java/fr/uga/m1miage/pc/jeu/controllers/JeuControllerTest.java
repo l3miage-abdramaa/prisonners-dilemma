@@ -23,12 +23,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
 import org.springframework.web.servlet.mvc.method.annotation.SseEmitter;
 
@@ -48,23 +42,21 @@ class JeuControllerTest {
         @Mock
         private JeuSseManager jeuSseManager;
 
-        @Autowired
-        private TestRestTemplate testRestTemplate;
 
-        @InjectMocks
+        @Mock
         private JeuController jeuController;
+
+
 
         @BeforeEach
         void setUp() {
                 MockitoAnnotations.openMocks(this);
+                jeuController = new JeuController(jeuService,jeuSseManager);
                 JeuEntity jeu = new JeuEntity();
                 jeu.setId(1L);
                 jeu.setStatut(StatutJeuEnum.EN_COURS);
                 jeu.setNombreParties(3);
-
-
                 when(jeuService.creerJeu("Abdraman", 3)).thenReturn(jeu);
-                
         }
 
         @Test

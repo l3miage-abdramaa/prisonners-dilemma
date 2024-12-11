@@ -1,4 +1,4 @@
-package fr.uga.m1miage.pc.joueur.repository;
+package fr.uga.m1miage.pc.jeu.repository;
 
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
