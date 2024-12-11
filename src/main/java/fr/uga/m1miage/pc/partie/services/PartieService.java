@@ -54,12 +54,13 @@ public class PartieService {
                 .build();
         partieJoueurRepository.save(partieJoueur);
 
+        Boolean unAbandonExiste = regarderSiJoueurAdverseAAbandonne(idJeu);
 
-        if (regarderSiJoueurAdverseAAbandonne(idJeu)) {
+        if (unAbandonExiste) {
             jouerServeurCoup(idJeu);
         }
 
-        if(partieEnCours.getPartiesJoueur().size() == 2) {
+        if(partieEnCours.getPartiesJoueur().size() == 2 || unAbandonExiste) {
             terminerPartie(partieEnCours);
         }
 
