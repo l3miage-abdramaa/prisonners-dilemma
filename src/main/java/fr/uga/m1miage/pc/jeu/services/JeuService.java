@@ -6,11 +6,11 @@ import fr.uga.m1miage.pc.jeu.exceptions.JeuCreationException;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
-import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
+import fr.uga.m1miage.pc.jeu.models.JoueurEntity;
 import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
-import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
-import fr.uga.m1miage.pc.partie.models.PartieEntity;
-import fr.uga.m1miage.pc.partie.repository.PartieRepository;
+import fr.uga.m1miage.pc.jeu.enums.StatutPartieEnum;
+import fr.uga.m1miage.pc.jeu.models.PartieEntity;
+import fr.uga.m1miage.pc.jeu.repository.PartieRepository;
 import org.springframework.stereotype.Service;
 
 @Service
