@@ -1,4 +1,4 @@
-package fr.uga.m1miage.pc.joueur.enums;
+package fr.uga.m1miage.pc.jeu.enums;
 
 
 public enum StrategieEnum {
@@ -25,5 +25,9 @@ public enum StrategieEnum {
     GRADUEL,
     DONNANT_DONNANT_SOUPCONNEUX,
     RANCUNIEUX_DOUX,
-    DONNANT_POUR_DEUX_DONNANTS;
+    DONNANT_POUR_DEUX_DONNANTS,
+
+    ALEATOIRE_G02_7,
+
+    TOUJOURS_TRAHIR_G02_7;
 }

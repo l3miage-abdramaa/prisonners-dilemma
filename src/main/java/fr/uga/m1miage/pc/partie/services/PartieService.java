@@ -6,7 +6,7 @@ import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
-import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
+import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
 import fr.uga.m1miage.pc.joueur.strategies.Strategie;
 import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
@@ -14,32 +14,31 @@ import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieJoueurRepository;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
 
 @Service
-@RequiredArgsConstructor
 public class PartieService {
 
-    @Autowired
-    private JeuRepository jeuRepository;
+    private final JeuRepository jeuRepository;
 
-    @Autowired
-    private  JoueurRepository joueurRepository;
+    private  final JoueurRepository joueurRepository;
 
-    @Autowired
-    private  PartieRepository partieRepository;
+    private  final PartieRepository partieRepository;
 
-    @Autowired
-    private PartieJoueurRepository partieJoueurRepository;
+    private final PartieJoueurRepository partieJoueurRepository;
 
-    @Autowired
-    private JeuSseManager jeuSseManager;
+    private final JeuSseManager jeuSseManager;
 
+    public PartieService(JeuRepository jeuRepository, JoueurRepository joueurRepository, PartieRepository partieRepository, PartieJoueurRepository partieJoueurRepository, JeuSseManager jeuSseManager) {
+        this.jeuRepository = jeuRepository;
+        this.joueurRepository = joueurRepository;
+        this.partieRepository = partieRepository;
+        this.partieJoueurRepository = partieJoueurRepository;
+        this.jeuSseManager = jeuSseManager;
+    }
 
     public PartieJoueurEntity jouerCoup(UUID idJoueur, Long idJeu, CoupEnum coup) {
         JoueurEntity joueur = joueurRepository.findById(idJoueur).orElseThrow();
@@ -90,7 +89,6 @@ public class PartieService {
         if (joueurAbandonne != null) {
             Strategie strategie = new Strategie();
             PartieEntity partieEnCours = partieRepository.findByJeuIdAndStatut(idJeu,StatutPartieEnum.EN_COURS);
-
             PartieJoueurEntity partieJoueur = PartieJoueurEntity
                     .builder()
                     .partie(partieEnCours)

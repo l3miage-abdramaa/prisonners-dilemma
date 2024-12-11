@@ -2,7 +2,7 @@ package fr.uga.m1miage.pc.joueur.strategies;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 
 import org.junit.jupiter.api.Test;
 
@@ -80,7 +80,7 @@ class StrategieFactoryTest {
     void testGetStrategiePacificateurNaif() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PACIFICATEUR_NAIF);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof PacificateurNaifStrategie);
+        assertInstanceOf(PacificateurNaifStrategie.class, strategie);
     }
 
 
@@ -88,7 +88,7 @@ class StrategieFactoryTest {
     void testGetStrategieVraiPacificateur() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.VRAI_PACIFICATEUR);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof VraiPacificateurStrategie);
+        assertInstanceOf(VraiPacificateurStrategie.class, strategie);
     }
 
 
@@ -96,21 +96,21 @@ class StrategieFactoryTest {
     void testGetStrategiePavlov() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PAVLOV);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof PavlovStrategie);
+        assertInstanceOf(PavlovStrategie.class, strategie);
     }
 
     @Test
     void testGetStrategiePavlovAleatoire() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.PAVLOV_ALEATOIRE);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof PavlovAleatoireStrategie);
+        assertInstanceOf(PavlovAleatoireStrategie.class, strategie);
     }
 
     @Test
     void testGetStrategieAdaptatif() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.ADAPTATIF);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof AdaptatifStrategie);
+        assertInstanceOf(AdaptatifStrategie.class, strategie);
     }
 
 
@@ -118,14 +118,14 @@ class StrategieFactoryTest {
     void testGetStrategieGraduel() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.GRADUEL);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof GraduelStrategie);
+        assertInstanceOf(GraduelStrategie.class, strategie);
     }
 
     @Test
     void testGetStrategieDonnantDonnantSupconneux() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_DONNANT_SOUPCONNEUX);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof DonnantDonnantSoupconneuxStrategie);
+        assertInstanceOf(DonnantDonnantSoupconneuxStrategie.class, strategie);
     }
 
 
@@ -134,7 +134,7 @@ class StrategieFactoryTest {
     void testGetStrategieRancunieuxDoux() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.RANCUNIEUX_DOUX);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof RancunierDouxStrategie);
+        assertInstanceOf(RancunierDouxStrategie.class, strategie);
     }
 
 
@@ -142,7 +142,21 @@ class StrategieFactoryTest {
     void testGetStrategieDonnantPourDeuxDonnants() {
         StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.DONNANT_POUR_DEUX_DONNANTS);
         assertNotNull(strategie);
-        assertTrue(strategie instanceof DonnantPourDeuxDonnantsStrategie);
+        assertInstanceOf(DonnantPourDeuxDonnantsStrategie.class, strategie);
+    }
+
+    @Test
+    void testGetStrategieAleatoire_G02_7() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.ALEATOIRE_G02_7);
+        assertNotNull(strategie);
+        assertInstanceOf(StrategieBinomeAdapter.class, strategie);
+    }
+
+    @Test
+    void testGetStrategieTOUJOURS_TRAHIR_G02_7() {
+        StrategieInterface strategie = StrategieFactory.getStrategie(StrategieEnum.TOUJOURS_TRAHIR_G02_7);
+        assertNotNull(strategie);
+        assertInstanceOf(StrategieBinomeAdapter.class, strategie);
     }
 
     @Test

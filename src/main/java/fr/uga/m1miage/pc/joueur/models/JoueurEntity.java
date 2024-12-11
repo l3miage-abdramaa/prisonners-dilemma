@@ -2,7 +2,7 @@ package fr.uga.m1miage.pc.joueur.models;
 
 
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 import fr.uga.m1miage.pc.partie.models.PartieJoueurEntity;
 import jakarta.persistence.*;
 import lombok.*;

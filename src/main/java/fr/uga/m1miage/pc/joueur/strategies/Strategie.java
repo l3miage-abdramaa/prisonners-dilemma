@@ -1,6 +1,6 @@
 package fr.uga.m1miage.pc.joueur.strategies;
 
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 

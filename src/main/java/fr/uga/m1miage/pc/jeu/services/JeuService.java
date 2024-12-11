@@ -7,26 +7,26 @@ import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.repository.JeuRepository;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
-import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
+import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
 import fr.uga.m1miage.pc.partie.models.PartieEntity;
 import fr.uga.m1miage.pc.partie.repository.PartieRepository;
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-@RequiredArgsConstructor
 public class JeuService {
-    @Autowired
-    JoueurRepository joueurRepository ;
-    @Autowired
-    JeuRepository jeuRepository;
-    @Autowired
-    PartieRepository partieRepository;
+    private final JoueurRepository joueurRepository ;
+    private final JeuRepository jeuRepository;
+    private final PartieRepository partieRepository;
+    private final JeuSseManager jeuSseManager;
 
-    @Autowired
-    private JeuSseManager jeuSseManager;
+
+    public JeuService(JoueurRepository joueurRepository, JeuRepository jeuRepository, PartieRepository partieRepository, JeuSseManager jeuSseManager) {
+        this.joueurRepository = joueurRepository;
+        this.jeuRepository = jeuRepository;
+        this.partieRepository = partieRepository;
+        this.jeuSseManager = jeuSseManager;
+    }
 
     public JeuEntity creerJeu(String nomJoueur, int nombreParties) {
         try {

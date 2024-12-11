@@ -1,6 +1,6 @@
 package fr.uga.m1miage.pc.joueur.responses;
 
-import fr.uga.m1miage.pc.joueur.enums.StrategieEnum;
+import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
 import lombok.*;
 
 import java.util.UUID;

@@ -3,7 +3,7 @@ package fr.uga.m1miage.pc.partie.controllers;
 import fr.uga.m1miage.pc.jeu.enums.StatutJeuEnum;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
-import fr.uga.m1miage.pc.joueur.repository.JoueurRepository;
+import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
 import fr.uga.m1miage.pc.joueur.responses.JoueurDTO;
 import fr.uga.m1miage.pc.partie.enums.CoupEnum;
 import fr.uga.m1miage.pc.partie.enums.StatutPartieEnum;
