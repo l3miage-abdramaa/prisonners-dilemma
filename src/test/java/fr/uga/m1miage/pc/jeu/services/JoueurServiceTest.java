@@ -3,7 +3,7 @@ package fr.uga.m1miage.pc.jeu.services;
 import fr.uga.m1miage.pc.jeu.models.JeuEntity;
 import fr.uga.m1miage.pc.jeu.sse.JeuSseManager;
 import fr.uga.m1miage.pc.jeu.enums.StrategieEnum;
-import fr.uga.m1miage.pc.joueur.models.JoueurEntity;
+import fr.uga.m1miage.pc.jeu.models.JoueurEntity;
 import fr.uga.m1miage.pc.jeu.repository.JoueurRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
