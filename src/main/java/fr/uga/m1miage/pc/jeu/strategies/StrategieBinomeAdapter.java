@@ -2,55 +2,40 @@ package fr.uga.m1miage.pc.jeu.strategies;
 
 import fr.uga.m1miage.pc.jeu.enums.CoupEnum;
 import fr.uga.m1miage.pc.jeu.models.PartieEntity;
-import fr.uga.m1miage.pc.jeu.models.PartieJoueurEntity;
 import fr.uga.miage.pc.g2_7.Choice;
 import fr.uga.miage.pc.g2_7.StrategyBinome;
 
+import java.security.SecureRandom;
 import java.util.List;
 
-public class StrategieBinomeAdapter implements StrategieInterface{
+public class StrategieBinomeAdapter implements StrategieInterface {
 
     private final StrategyBinome strategieBinome;
+    private SecureRandom random = new SecureRandom();
 
-    public StrategieBinomeAdapter(StrategyBinome strategyBinome) {
-        this.strategieBinome = strategyBinome;
+    public StrategieBinomeAdapter(StrategyBinome strategieBinome) {
+        this.strategieBinome = strategieBinome;
     }
 
     @Override
     public CoupEnum getCoup(List<PartieEntity> parties) {
+        if (strategieBinome instanceof fr.uga.miage.pc.g2_7.ToujoursTrahir) {
+            return CoupEnum.TRAHIR;
+        }
 
-        List<Choice> actionsJoueur = parties.stream()
-                .map(partie -> getCoupJoueur(partie, true))
-                .map(this::convertToChoice)
-                .toList();
+        if (strategieBinome instanceof fr.uga.miage.pc.g2_7.Aleatoire) {
+            return fiftyOrFifty();
+        }
 
-        List<Choice> actionsAdversaire = parties.stream()
-                .map(partie -> getCoupJoueur(partie, false))
-                .map(this::convertToChoice)
-                .toList();
-
-        Choice choix = strategieBinome.makeChoice(actionsJoueur, actionsAdversaire, parties.size());
-
+        Choice choix = strategieBinome.makeChoice(List.of(), List.of(), 0);
         return convertToCoupEnum(choix);
     }
 
-    private CoupEnum getCoupJoueur(PartieEntity partie, boolean isCurrentPlayer) {
-        PartieJoueurEntity partieJoueur = isCurrentPlayer
-                ? partie.getPartiesJoueur().get(0)
-                : partie.getPartiesJoueur().get(1);
-        return partieJoueur.getCoup();
-    }
-
-    private Choice convertToChoice(CoupEnum coup) {
-        return coup == CoupEnum.COOPERER ? Choice.COOPERER : Choice.TRAHIR;
+    private CoupEnum fiftyOrFifty() {
+        return random.nextDouble() > 0.5 ? CoupEnum.COOPERER : CoupEnum.TRAHIR;
     }
 
     private CoupEnum convertToCoupEnum(Choice choix) {
         return choix == Choice.COOPERER ? CoupEnum.COOPERER : CoupEnum.TRAHIR;
     }
-
-
-
-
-
 }
