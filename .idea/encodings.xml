@@ -2,11 +2,71 @@
 <project version="4">
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/lib/strategie_g2_7.jar" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/enums/CoupEnum.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/enums/StatutJeuEnum.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/enums/StatutPartieEnum.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/enums/StrategieEnum.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/requests/AbandonRequestDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/requests/CoupRequest.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/requests/JeuConnexionRequestDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/requests/JeuCreationRequestDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/JeuConnexionResponseDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/JeuCreationResponseDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/JeuDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/JoueurDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/PartieDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/PartieDetailsDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/rest-api/src/main/java/fr/uga/m1miage/pc/restApi/response/PartieJoueurDTO.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/PrisonersDilemmaApplication.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/config/EnvVariableConfig.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/config/SseConfig.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/controller/JeuController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/controller/JoueurController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/controller/PartieController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/exceptions/JeuCreationException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/handlers/RuntimeExceptionHandler.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/mappers/GlobalMapper.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/models/JeuEntity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/models/JoueurEntity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/models/PartieEntity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/models/PartieJoueurEntity.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/repositories/JeuRepository.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/repositories/JoueurRepository.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/repositories/PartieJoueurRepository.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/repositories/PartieRepository.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/services/JeuService.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/services/JoueurService.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/services/PartieService.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/sse/JeuSseManager.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/AdaptatifStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/AleatoireStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/DonnantDonnantAleatoireStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/DonnantDonnantSoupconneuxStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/DonnantDonnantStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/DonnantPourDeuxDonnantsAleatoireStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/DonnantPourDeuxDonnantsStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/GraduelStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/PacificateurNaifStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/PavlovAleatoireStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/PavlovStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/RancunierDouxStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/RancunierStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/SondeurNaifStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/SondeurRepentantStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/Strategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/StrategieBinomeAdapter.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/StrategieFactory.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/StrategieInterface.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/ToujoursCoopererStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/ToujoursTrahirStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/java/fr/uga/m1miage/pc/serv/strategies/VraiPacificateurStrategie.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/server/src/main/resources/application.yml" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/server/src/test/java/fr/uga/m1miage/pc/serv/strategies/DonnantDonnantStrategieTest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/main/java/fr/uga/m1miage/pc/jeu/services/PartieService.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/java/fr/uga/m1miage/pc/lib" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/src/main/resources" charset="ISO-8859-1" />
-    <file url="file://$PROJECT_DIR$/src/test/java/fr/uga/m1miage/pc/jeu/strategies/DonnantDonnantStrategieTest.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/strategiesg03/DonnantDonnantStrategie.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/strategiesg03/StrategieInterface.java" charset="ISO-8859-1" />
     <file url="file://$PROJECT_DIR$/strategiesg03/ToujoursCoopererStrategie.java" charset="ISO-8859-1" />
