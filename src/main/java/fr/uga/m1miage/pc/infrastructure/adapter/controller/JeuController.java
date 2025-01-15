@@ -33,7 +33,7 @@ public class JeuController {
     }
 
     @GetMapping("{idJeu}/joueurs/{idJoueur}/event")
-    @CrossOrigin("")
+    @CrossOrigin("*")
     public SseEmitter eventEmitter(@PathVariable Long idJeu, @PathVariable String idJoueur) throws IOException {
         return jeuSseManager.creerNouveauSse(idJeu, idJoueur);
     }
